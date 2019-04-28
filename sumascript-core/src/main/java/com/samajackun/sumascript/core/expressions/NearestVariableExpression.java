@@ -8,11 +8,11 @@ import com.samajackun.rodas.core.model.Datatype;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.MetadataException;
 
-public class GlobalVariableExpression implements Expression
+public class NearestVariableExpression implements Expression, Assignable
 {
 	private final String varName;
 
-	public GlobalVariableExpression(String varName)
+	public NearestVariableExpression(String varName)
 	{
 		super();
 		this.varName=varName;
@@ -24,7 +24,7 @@ public class GlobalVariableExpression implements Expression
 	{
 		try
 		{
-			return context.getVariablesManager().getGlobalVariable(this.varName);
+			return context.getVariablesManager().getNearestVariable(this.varName);
 		}
 		catch (VariableNotFoundException e)
 		{
@@ -33,9 +33,16 @@ public class GlobalVariableExpression implements Expression
 	}
 
 	@Override
+	public void set(Context context, EvaluatorFactory evaluatorFactory, Object value)
+		throws EvaluationException
+	{
+		context.getVariablesManager().setNearestVariable(this.varName, value);
+	}
+
+	@Override
 	public String toCode()
 	{
-		return CodeUtils.toVar(this.varName);
+		return this.varName;
 	}
 
 	@Override
@@ -44,7 +51,7 @@ public class GlobalVariableExpression implements Expression
 	{
 		try
 		{
-			Object value=context.getVariablesManager().getGlobalVariable(this.varName);
+			Object value=context.getVariablesManager().getNearestVariable(this.varName);
 			return TypeUtils.guessType(value);
 		}
 		catch (VariableNotFoundException e)

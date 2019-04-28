@@ -30,22 +30,19 @@ public class IfInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.expression.evaluate(context, ScriptEvaluatorFactory.getInstance());
+			Object value=this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
 			Jump jump;
 			if (ConditionalsUtils.isTrue(value))
 			{
-				jump=this.afirmative.execute(context);
+				jump=(this.afirmative == null)
+					? NoJump.getInstance()
+					: this.afirmative.execute(context);
 			}
 			else
 			{
-				if (this.negative != null)
-				{
-					jump=this.negative.execute(context);
-				}
-				else
-				{
-					jump=NoJump.getInstance();
-				}
+				jump=(this.negative == null)
+					? NoJump.getInstance()
+					: this.negative.execute(context);
 			}
 			return jump;
 		}

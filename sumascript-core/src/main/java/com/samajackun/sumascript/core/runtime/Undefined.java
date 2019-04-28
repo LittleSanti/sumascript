@@ -12,4 +12,10 @@ public class Undefined
 	{
 		return Undefined.INSTANCE;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "undefined";
+	}
 }

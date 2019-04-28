@@ -1,6 +1,6 @@
 package com.samajackun.sumascript.core.instructions;
 
-final class ConditionalsUtils
+public final class ConditionalsUtils
 {
 	private ConditionalsUtils()
 	{

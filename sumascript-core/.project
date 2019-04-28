@@ -3,6 +3,7 @@
 	<name>sumascript-core</name>
 	<comment>Project zebrascript created by Buildship.</comment>
 	<projects>
+		<project>rodas-core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

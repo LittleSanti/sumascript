@@ -9,16 +9,15 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    
+    id 'maven-publish'
 }
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
     
-    api 'com.samajackun.rodas:rodas-core:0.0.1-SNAPSHOT'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:23.0'
+    //api 'com.samajackun.rodas:rodas-core:0.0.1-SNAPSHOT'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
@@ -37,5 +36,23 @@ repositories {
 	}
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.samajackun.sumascript'
+            artifactId = 'sumascript-core'
+            version = '0.0.1'
+
+            from components.java
+        }
+	}
+    repositories {
+	        maven {
+			url "file:/u:/.m2/repository"
+        }
+    }
+}
+
 task distribution {
 }
+

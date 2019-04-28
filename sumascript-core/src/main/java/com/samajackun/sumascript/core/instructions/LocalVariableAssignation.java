@@ -6,6 +6,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Jump;
 import com.samajackun.sumascript.core.jumps.NoJump;
+import com.samajackun.sumascript.core.runtime.Undefined;
 
 public class LocalVariableAssignation extends AbstractVariableAssignation
 {
@@ -20,7 +21,10 @@ public class LocalVariableAssignation extends AbstractVariableAssignation
 	{
 		try
 		{
-			context.getVariablesManager().setLocalVariable(getName(), getExpression().evaluate(context, ScriptEvaluatorFactory.getInstance()));
+			Object value=getExpression() == null
+				? Undefined.getInstance()
+				: getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
+			context.getVariablesManager().setLocalVariable(getName(), value);
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)

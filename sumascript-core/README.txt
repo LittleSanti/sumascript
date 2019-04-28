@@ -1,0 +1,4 @@
+Nombres candidatos:
+
+zoomscript
+sumascript

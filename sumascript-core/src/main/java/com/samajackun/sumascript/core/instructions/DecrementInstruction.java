@@ -1,17 +1,22 @@
 package com.samajackun.sumascript.core.instructions;
 
+import com.samajackun.rodas.core.eval.ArithmeticUtils;
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
-import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
+import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.expressions.Assignable;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
-public class GlobalVariableAssignation extends AbstractVariableAssignation
+public class DecrementInstruction implements Instruction
 {
-	public GlobalVariableAssignation(String name, Expression expression)
+	private final Assignable leftSide;
+
+	public DecrementInstruction(Assignable leftSide)
 	{
-		super(name, expression);
+		super();
+		this.leftSide=leftSide;
 	}
 
 	@Override
@@ -20,7 +25,8 @@ public class GlobalVariableAssignation extends AbstractVariableAssignation
 	{
 		try
 		{
-			context.getVariablesManager().setGlobalVariable(getName(), getExpression().evaluate(context, ScriptEvaluatorFactory.getInstance()));
+			Object value=this.leftSide.evaluate(context, SumaEvaluatorFactory.getInstance());
+			this.leftSide.set(context, SumaEvaluatorFactory.getInstance(), ArithmeticUtils.computeAdd(value, -1));
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)

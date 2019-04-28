@@ -8,15 +8,13 @@ import org.junit.Test;
 
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.eval.VariablesManager;
-import com.samajackun.sumascript.core.runtime.FlexibleVariablesManager;
-import com.samajackun.sumascript.core.runtime.Undefined;
 
 public class FlexibleVariablesManagerTest
 {
 	@Test
 	public void getUnexistingGlobalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		String varName="month";
 		try
 		{
@@ -32,7 +30,7 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void getExistingGlobalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		try
@@ -49,7 +47,7 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void overwriteGlobalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.setGlobalVariable(varName, "february");
@@ -67,7 +65,7 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void removeGlobalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.removeGlobalVariable(varName);
@@ -85,8 +83,8 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void getUnexistingLocalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+		variablesManager.pushLocalContext(new FlexibleVariablesContext());
 		String varName="day";
 		try
 		{
@@ -102,8 +100,8 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void getExistingLocalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+		variablesManager.pushLocalContext(new FlexibleVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		try
@@ -120,8 +118,8 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void overwriteLocalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+		variablesManager.pushLocalContext(new FlexibleVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.setLocalVariable(varName, "tuesday");
@@ -139,8 +137,8 @@ public class FlexibleVariablesManagerTest
 	@Test
 	public void removeLocalVariable()
 	{
-		VariablesManager variablesManager=new FlexibleVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+		variablesManager.pushLocalContext(new FlexibleVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.removeLocalVariable(varName);
@@ -161,8 +159,8 @@ public class FlexibleVariablesManagerTest
 	{
 		try
 		{
-			VariablesManager variablesManager=new FlexibleVariablesManager();
-			variablesManager.pushLocalContext();
+			VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+			variablesManager.pushLocalContext(new FlexibleVariablesContext());
 			String varName1="day";
 			variablesManager.setLocalVariable(varName1, "monday");
 			assertEquals("monday", variablesManager.getLocalVariable(varName1));
@@ -170,7 +168,7 @@ public class FlexibleVariablesManagerTest
 			variablesManager.setLocalVariable(varName2, "january");
 			assertEquals("january", variablesManager.getLocalVariable(varName2));
 
-			variablesManager.pushLocalContext();
+			variablesManager.pushLocalContext(new FlexibleVariablesContext());
 			variablesManager.setLocalVariable(varName1, "tuesday");
 			assertEquals("tuesday", variablesManager.getLocalVariable(varName1));
 			assertSame(Undefined.getInstance(), variablesManager.getGlobalVariable(varName2));

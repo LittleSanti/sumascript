@@ -20,7 +20,7 @@ public class ExecutionException extends Exception
 
 	public ExecutionException(Throwable cause)
 	{
-		super(cause);
+		super(cause.getMessage(), cause);
 	}
 
 	public Location getLocation()

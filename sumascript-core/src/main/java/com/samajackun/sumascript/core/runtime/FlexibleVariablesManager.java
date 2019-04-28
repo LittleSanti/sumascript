@@ -1,12 +1,18 @@
 package com.samajackun.sumascript.core.runtime;
 
 import com.samajackun.rodas.core.eval.AbstractVariablesManager;
+import com.samajackun.rodas.core.eval.VariablesContext;
 
 public class FlexibleVariablesManager extends AbstractVariablesManager
 {
-	@Override
-	protected FlexibleVariablesContext createVariablesContext()
+	public FlexibleVariablesManager(VariablesContext globalVariables)
 	{
-		return new FlexibleVariablesContext();
+		super(globalVariables);
+	}
+
+	@Override
+	protected Object getValueForVariableNotFound(String name)
+	{
+		return Undefined.getInstance();
 	}
 }

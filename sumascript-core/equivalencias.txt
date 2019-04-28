@@ -1,0 +1,40 @@
+Quiero reusar en zetascrit la abstracción Expression (y toda su jerarquía) de rodas-core. Entonces, a ver si puedo establecer las necesarias equivalencias entre Runtime y Context:
+
+-----------------------------
+Variables en javascript:
+
+-ámbito global: copia única.
+
+-al iniciar un método: push nuevo contexto de variables locales. Rellenar con parámetros de entrada.
+-al terminar un método (por agotamiento, return, exit o throw): Pop el último contexto.
+-Al declarar una variable local: Machacar el valor de esa variable en el ámbito local. No se recupera aunque termine el bloque en el que se encuentra (incluídas las variables locales definidas en un for).
+-No hay búsqueda recursiva entre ámbitos: El programa sólo "ve" las variables locales definidas dentro del ámbito actual.
+
+No hay confusión possible entre el ámbito global y el local, por el léxico:
+-global: this.var
+-local: var
+
+-----------------------------
+Variables en SQL:
+
+-parámetros: son de ámbito global.
+-al iniciar un join, push un nuevo contexto de variables locales.
+-al finalizar un join, pop.
+-La búsqueda de variables es recursiva entre ámbitos superiores, empezando por el ámbito más cercano.
+
+-----------------------------
+
+Conclusión: Hay que diseñar una abstracción que modele estos 4 comportamientos:
+-push
+-pop
+-set
+-get
+No hay remove: El remove es implícito en el pop correspondiente.
+Y 2 implementaciones: Una para la fase javascript y otra para la SQL.
+
+Hay que tener en cuenta que en rodas, es MyBaseEvaluator quien pide al contexto 
+el valor de parámetros y variables. Y ocurre que MyBaseEvaluator sólo llama 
+a context.getColumnByName y context.getParameter, lo cual nos facilita muchísimo 
+poder deshacer el contexto actual como fachada y mejor subdividirlo en varias 
+sub-abstarcciones específicas; Una para almacenar todas las variables 
+(cuya implementación en la parte js será VariablesContext).

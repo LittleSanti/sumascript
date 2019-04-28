@@ -7,9 +7,12 @@ import com.samajackun.rodas.core.eval.IndexNotBoundException;
 import com.samajackun.rodas.core.eval.MapList;
 import com.samajackun.rodas.core.eval.NameNotBoundException;
 import com.samajackun.rodas.core.eval.Runtime;
+import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.eval.VariablesManager;
-import com.samajackun.rodas.core.model.Cursor;
-import com.samajackun.rodas.core.model.CursorException;
+import com.samajackun.rodas.core.execution.Cursor;
+import com.samajackun.rodas.core.execution.CursorException;
+import com.samajackun.rodas.core.model.Provider;
+import com.samajackun.sumascript.core.runtime.FlexibleVariablesContext;
 import com.samajackun.sumascript.core.runtime.FlexibleVariablesManager;
 import com.samajackun.sumascript.core.runtime.ScriptRuntime;
 
@@ -17,7 +20,7 @@ public class MyContext implements Context
 {
 	private final ScriptRuntime runtime=new ScriptRuntime(new File(System.getProperty("user.dir")));
 
-	private final VariablesManager variablesManager=new FlexibleVariablesManager();
+	private final VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 
 	@Override
 	public Context fork(Context arg0)
@@ -34,19 +37,27 @@ public class MyContext implements Context
 	}
 
 	@Override
-	public Object getColumnByName(String arg0)
+	public Object getColumnByName(String varName)
 		throws NameNotBoundException,
 		CursorException
 	{
-		return null;
+		return getColumnByName(varName, null);
 	}
 
 	@Override
-	public Object getColumnByName(String arg0, String arg1)
+	public Object getColumnByName(String varName, String prefix)
 		throws NameNotBoundException,
 		CursorException
 	{
-		return null;
+		// Esta implementación es sólo para ir probando el SumaParser.
+		try
+		{
+			return getVariablesManager().getLocalVariable(varName);
+		}
+		catch (VariableNotFoundException e)
+		{
+			throw new NameNotBoundException(varName);
+		}
 	}
 
 	@Override
@@ -77,5 +88,11 @@ public class MyContext implements Context
 	public VariablesManager getVariablesManager()
 	{
 		return this.variablesManager;
+	}
+
+	@Override
+	public Provider getProvider()
+	{
+		return null;
 	}
 }

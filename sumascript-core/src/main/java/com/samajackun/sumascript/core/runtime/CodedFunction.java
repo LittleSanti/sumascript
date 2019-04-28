@@ -4,10 +4,12 @@ import java.util.List;
 
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.functions.Function;
+import com.samajackun.rodas.core.eval.functions.FunctionEvaluationException;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
-import com.samajackun.sumascript.core.instructions.ScriptEvaluatorFactory;
+import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
 
 public class CodedFunction implements Function
 {
@@ -24,11 +26,21 @@ public class CodedFunction implements Function
 		this.body=body;
 	}
 
+	public List<String> getParameterNames()
+	{
+		return this.parameterNames;
+	}
+
+	public Instruction getBody()
+	{
+		return this.body;
+	}
+
 	@Override
 	public Object call(Context context, List<Object> argumentValues)
-		throws FunctionCallException
+		throws FunctionEvaluationException
 	{
-		context.getVariablesManager().pushLocalContext();
+		context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
 		context.getVariablesManager().setLocalVariable(PARAMETERS_NAME, argumentValues);
 		int p=0;
 		for (String parameterName : this.parameterNames)
@@ -42,7 +54,7 @@ public class CodedFunction implements Function
 			Object returnValue;
 			if (jump.isReturn())
 			{
-				returnValue=jump.getExpression().evaluate(context, ScriptEvaluatorFactory.getInstance());
+				returnValue=jump.getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
 			}
 			else
 			{
@@ -52,11 +64,11 @@ public class CodedFunction implements Function
 		}
 		catch (ExecutionException e)
 		{
-			throw new FunctionCallException(e);
+			throw new FunctionEvaluationException(e.getMessage(), "?");
 		}
 		catch (EvaluationException e)
 		{
-			throw new FunctionCallException(e);
+			throw new FunctionEvaluationException(e.getMessage(), "?");
 		}
 		finally
 		{

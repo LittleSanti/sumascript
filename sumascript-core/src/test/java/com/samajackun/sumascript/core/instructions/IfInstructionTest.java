@@ -10,7 +10,7 @@ import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.expression.MyContext;
 import com.samajackun.sumascript.core.instructions.IfInstruction;
-import com.samajackun.sumascript.core.instructions.ScriptEvaluatorFactory;
+import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
 
 public class IfInstructionTest
 {
@@ -22,7 +22,7 @@ public class IfInstructionTest
 		{
 			MyContext context=new MyContext();
 			Expression conditionalExpression=Mockito.mock(Expression.class);
-			Mockito.when(conditionalExpression.evaluate(context, ScriptEvaluatorFactory.getInstance())).thenReturn(true);
+			Mockito.when(conditionalExpression.evaluate(context, SumaEvaluatorFactory.getInstance())).thenReturn(true);
 
 			Instruction positiveInstruction=Mockito.mock(Instruction.class);
 			Instruction negativeInstruction=Mockito.mock(Instruction.class);
@@ -45,7 +45,7 @@ public class IfInstructionTest
 		{
 			MyContext context=new MyContext();
 			Expression conditionalExpression=Mockito.mock(Expression.class);
-			Mockito.when(conditionalExpression.evaluate(context, ScriptEvaluatorFactory.getInstance())).thenReturn(false);
+			Mockito.when(conditionalExpression.evaluate(context, SumaEvaluatorFactory.getInstance())).thenReturn(false);
 
 			Instruction positiveInstruction=Mockito.mock(Instruction.class);
 			Instruction negativeInstruction=Mockito.mock(Instruction.class);

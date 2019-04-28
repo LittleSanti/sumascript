@@ -26,7 +26,7 @@ public class ChangeCurrentDirectoryInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.newDirectory.evaluate(context, ScriptEvaluatorFactory.getInstance());
+			Object value=this.newDirectory.evaluate(context, SumaEvaluatorFactory.getInstance());
 			String valueStr=value == null
 				? "null"
 				: value.toString();

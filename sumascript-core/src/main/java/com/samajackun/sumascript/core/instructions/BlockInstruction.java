@@ -29,9 +29,7 @@ public class BlockInstruction implements Instruction
 			Instruction instruction=iterator.next();
 			jump=instruction.execute(context);
 		}
-		return jump.isBreak()
-			? NoJump.getInstance()
-			: jump;
+		return jump;
 	}
 
 	private boolean canGoOn(Jump jump)

@@ -17,11 +17,14 @@ public class SwitchInstruction implements Instruction
 
 	private final List<Pair> pairs;
 
-	public SwitchInstruction(Expression expression, List<Pair> pairs)
+	private final Instruction defaultInstruction;
+
+	public SwitchInstruction(Expression expression, List<Pair> pairs, Instruction defaultInstruction)
 	{
 		super();
 		this.expression=expression;
 		this.pairs=pairs;
+		this.defaultInstruction=defaultInstruction;
 	}
 
 	@Override
@@ -31,29 +34,25 @@ public class SwitchInstruction implements Instruction
 		try
 		{
 			Jump jump=NoJump.getInstance();
-			Object value=this.expression.evaluate(context, ScriptEvaluatorFactory.getInstance());
-			boolean executing=false;
+			Object value=this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
+			boolean found=false;
 			for (Pair pair : this.pairs)
 			{
-				if (!executing)
-				{
-					if (pair.getMatchingValues().contains(value))
-					{
-						executing=true;
-					}
-				}
-				if (executing)
+				if (pair.getMatchingValues().contains(value))
 				{
 					jump=pair.getInstruction().execute(context);
-					if (jump.isBreak())
-					{
-						jump=NoJump.getInstance();
-						break;
-					}
-					else if (jump.isReturn() || jump.isThrow() || jump.isExit())
+					found=true;
+					if (jump.isBreak() || jump.isReturn() || jump.isThrow() || jump.isExit())
 					{
 						break;
 					}
+				}
+			}
+			if (!found)
+			{
+				if (this.defaultInstruction != null)
+				{
+					jump=this.defaultInstruction.execute(context);
 				}
 			}
 			return jump;

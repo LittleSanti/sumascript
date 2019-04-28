@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'sumascript'
-//include 'sumascript-core'
+include 'sumascript-core'

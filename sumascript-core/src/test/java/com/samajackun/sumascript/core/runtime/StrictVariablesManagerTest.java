@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.StrictVariablesContext;
 import com.samajackun.rodas.core.eval.StrictVariablesManager;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.eval.VariablesManager;
@@ -14,7 +15,7 @@ public class StrictVariablesManagerTest
 	@Test
 	public void getUnexistingGlobalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
 		String varName="month";
 		try
 		{
@@ -30,7 +31,7 @@ public class StrictVariablesManagerTest
 	@Test
 	public void getExistingGlobalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		try
@@ -47,7 +48,7 @@ public class StrictVariablesManagerTest
 	@Test
 	public void overwriteGlobalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.setGlobalVariable(varName, "february");
@@ -65,7 +66,7 @@ public class StrictVariablesManagerTest
 	@Test
 	public void removeGlobalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
 		String varName="month";
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.removeGlobalVariable(varName);
@@ -83,8 +84,8 @@ public class StrictVariablesManagerTest
 	@Test
 	public void getUnexistingLocalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
+		variablesManager.pushLocalContext(new StrictVariablesContext());
 		String varName="day";
 		try
 		{
@@ -100,8 +101,8 @@ public class StrictVariablesManagerTest
 	@Test
 	public void getExistingLocalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
+		variablesManager.pushLocalContext(new StrictVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		try
@@ -118,8 +119,8 @@ public class StrictVariablesManagerTest
 	@Test
 	public void overwriteLocalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
+		variablesManager.pushLocalContext(new StrictVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.setLocalVariable(varName, "tuesday");
@@ -137,8 +138,8 @@ public class StrictVariablesManagerTest
 	@Test
 	public void removeLocalVariable()
 	{
-		VariablesManager variablesManager=new StrictVariablesManager();
-		variablesManager.pushLocalContext();
+		VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
+		variablesManager.pushLocalContext(new StrictVariablesContext());
 		String varName="day";
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.removeLocalVariable(varName);
@@ -159,8 +160,8 @@ public class StrictVariablesManagerTest
 	{
 		try
 		{
-			VariablesManager variablesManager=new StrictVariablesManager();
-			variablesManager.pushLocalContext();
+			VariablesManager variablesManager=new StrictVariablesManager(new StrictVariablesContext());
+			variablesManager.pushLocalContext(new StrictVariablesContext());
 			String varName1="day";
 			variablesManager.setLocalVariable(varName1, "monday");
 			assertEquals("monday", variablesManager.getLocalVariable(varName1));
@@ -168,7 +169,7 @@ public class StrictVariablesManagerTest
 			variablesManager.setLocalVariable(varName2, "january");
 			assertEquals("january", variablesManager.getLocalVariable(varName2));
 
-			variablesManager.pushLocalContext();
+			variablesManager.pushLocalContext(new StrictVariablesContext());
 			variablesManager.setLocalVariable(varName1, "tuesday");
 			assertEquals("tuesday", variablesManager.getLocalVariable(varName1));
 			try

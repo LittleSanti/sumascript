@@ -10,15 +10,18 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 abstract class AbstractLoopInstruction implements Instruction
 {
-	private final Expression loopingCondition;
+	private final Expression preCondition;
 
-	private final Instruction stepInstruction;
+	private final Expression postCondition;
 
-	public AbstractLoopInstruction(Expression loopingCondition, Instruction stepInstruction)
+	private final Instruction innerInstruction;
+
+	public AbstractLoopInstruction(Expression preCondition, Instruction innerInstruction, Expression postCondition)
 	{
 		super();
-		this.loopingCondition=loopingCondition;
-		this.stepInstruction=stepInstruction;
+		this.preCondition=preCondition;
+		this.innerInstruction=innerInstruction;
+		this.postCondition=postCondition;
 	}
 
 	@Override
@@ -28,22 +31,31 @@ abstract class AbstractLoopInstruction implements Instruction
 		try
 		{
 			Jump jump=initializations(context);
-			while (evaluateCondition(context))
+			boolean looping=true;
+			while (looping)
 			{
-				jump=this.stepInstruction.execute(context);
-				if (jump.isBreak())
+				looping=evaluatePreCondition(context);
+				if (looping)
 				{
-					jump=NoJump.getInstance();
-					break;
+					jump=this.innerInstruction.execute(context);
+					if (jump.isBreak())
+					{
+						jump=NoJump.getInstance();
+						looping=false;
+					}
+					else if (jump.isExit() || jump.isReturn() || jump.isThrow())
+					{
+						looping=false;
+					}
+					jump=postInstructions(context);
+					if (jump.isExit() || jump.isReturn() || jump.isThrow())
+					{
+						looping=false;
+					}
 				}
-				else if (jump.isExit() || jump.isReturn() || jump.isThrow())
+				if (looping)
 				{
-					break;
-				}
-				jump=postInstructions(context);
-				if (jump.isExit() || jump.isReturn() || jump.isThrow())
-				{
-					break;
+					looping=evaluatePostCondition(context);
 				}
 			}
 			return jump;
@@ -54,10 +66,16 @@ abstract class AbstractLoopInstruction implements Instruction
 		}
 	}
 
-	protected boolean evaluateCondition(Context context)
+	protected boolean evaluatePreCondition(Context context)
 		throws EvaluationException
 	{
-		return ConditionalsUtils.isTrue(this.loopingCondition.evaluate(context, ScriptEvaluatorFactory.getInstance()));
+		return this.preCondition == null || ConditionalsUtils.isTrue(this.preCondition.evaluate(context, SumaEvaluatorFactory.getInstance()));
+	}
+
+	protected boolean evaluatePostCondition(Context context)
+		throws EvaluationException
+	{
+		return this.postCondition == null || ConditionalsUtils.isTrue(this.postCondition.evaluate(context, SumaEvaluatorFactory.getInstance()));
 	}
 
 	protected Jump initializations(Context context)

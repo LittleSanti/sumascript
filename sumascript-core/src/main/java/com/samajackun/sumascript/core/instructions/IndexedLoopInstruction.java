@@ -15,9 +15,9 @@ public class IndexedLoopInstruction extends AbstractLoopInstruction
 
 	private final List<Instruction> postStepInstructions;
 
-	public IndexedLoopInstruction(List<AbstractVariableAssignation> assignations, Expression loopingCondition, Instruction stepInstruction, List<Instruction> postStepInstructions)
+	public IndexedLoopInstruction(List<AbstractVariableAssignation> assignations, Expression loopingCondition, Instruction innerInstruction, List<Instruction> postStepInstructions)
 	{
-		super(loopingCondition, stepInstruction);
+		super(loopingCondition, innerInstruction, null);
 		this.assignations=assignations;
 		this.postStepInstructions=postStepInstructions;
 	}

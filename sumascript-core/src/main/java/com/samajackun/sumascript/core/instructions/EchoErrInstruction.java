@@ -24,7 +24,7 @@ public class EchoErrInstruction implements Instruction
 	{
 		try
 		{
-			context.getRuntime().getErr().println(this.expression.evaluate(context, ScriptEvaluatorFactory.getInstance()));
+			context.getRuntime().getErr().println(this.expression.evaluate(context, SumaEvaluatorFactory.getInstance()));
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)

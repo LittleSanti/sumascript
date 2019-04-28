@@ -24,7 +24,7 @@ public class ExpressionInstruction implements Instruction
 	{
 		try
 		{
-			this.expression.evaluate(context, ScriptEvaluatorFactory.getInstance());
+			this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)
