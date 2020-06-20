@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.DummyContext;
 import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.IdentifierExpression;
@@ -60,7 +61,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals("january", map.get("month").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals("january", map.get("month").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -80,8 +81,8 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(2, map.size());
 		try
 		{
-			assertEquals("january", map.get("month").evaluate(null, SumaEvaluatorFactory.getInstance()));
-			assertEquals("monday", map.get("day").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals("january", map.get("month").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
+			assertEquals("monday", map.get("day").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -101,7 +102,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals("january", map.get("month").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals("january", map.get("month").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -121,7 +122,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals(10L, map.get("month").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(10L, map.get("month").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -141,7 +142,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals(10.23d, map.get("month").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(10.23d, map.get("month").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -161,7 +162,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals(true, map.get("assigned").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(true, map.get("assigned").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -181,7 +182,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, map.size());
 		try
 		{
-			assertEquals(false, map.get("assigned").evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(false, map.get("assigned").evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -222,7 +223,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(120L, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(120L, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -242,8 +243,8 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(2, list.size());
 		try
 		{
-			assertEquals(120L, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
-			assertEquals(121L, list.get(1).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(120L, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
+			assertEquals(121L, list.get(1).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -263,7 +264,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals("april", list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals("april", list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -283,7 +284,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals("april", list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals("april", list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -303,7 +304,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertNull(list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertNull(list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -323,7 +324,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertSame(Undefined.getInstance(), list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertSame(Undefined.getInstance(), list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -343,7 +344,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(120L, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(120L, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -363,7 +364,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(120.3d, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(120.3d, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -383,7 +384,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(true, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(true, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -403,7 +404,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(false, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(false, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -423,9 +424,9 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(3, list.size());
 		try
 		{
-			assertEquals(120L, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
-			assertEquals("april", list.get(1).evaluate(null, SumaEvaluatorFactory.getInstance()));
-			assertEquals(true, list.get(2).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(120L, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
+			assertEquals("april", list.get(1).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
+			assertEquals(true, list.get(2).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -445,7 +446,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			assertEquals(3L, list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance()));
+			assertEquals(3L, list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance()));
 		}
 		catch (EvaluationException e)
 		{
@@ -465,7 +466,7 @@ public class SumaArithmeticExpressionParserTest
 		assertEquals(1, list.size());
 		try
 		{
-			Object item=list.get(0).evaluate(null, SumaEvaluatorFactory.getInstance());
+			Object item=list.get(0).evaluate(DummyContext.getInstance(), SumaEvaluatorFactory.getInstance());
 			assertTrue(item instanceof List);
 			@SuppressWarnings({
 				"unchecked",

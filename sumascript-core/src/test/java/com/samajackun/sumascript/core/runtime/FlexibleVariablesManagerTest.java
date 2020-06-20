@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.eval.VariablesManager;
 
@@ -15,7 +16,7 @@ public class FlexibleVariablesManagerTest
 	public void getUnexistingGlobalVariable()
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
-		String varName="month";
+		Name varName=Name.instanceOf("month");
 		try
 		{
 			assertSame(Undefined.getInstance(), variablesManager.getGlobalVariable(varName));
@@ -31,7 +32,7 @@ public class FlexibleVariablesManagerTest
 	public void getExistingGlobalVariable()
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
-		String varName="month";
+		Name varName=Name.instanceOf("month");
 		variablesManager.setGlobalVariable(varName, "january");
 		try
 		{
@@ -48,7 +49,7 @@ public class FlexibleVariablesManagerTest
 	public void overwriteGlobalVariable()
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
-		String varName="month";
+		Name varName=Name.instanceOf("month");
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.setGlobalVariable(varName, "february");
 		try
@@ -66,7 +67,7 @@ public class FlexibleVariablesManagerTest
 	public void removeGlobalVariable()
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
-		String varName="month";
+		Name varName=Name.instanceOf("month");
 		variablesManager.setGlobalVariable(varName, "january");
 		variablesManager.removeGlobalVariable(varName);
 		try
@@ -85,7 +86,7 @@ public class FlexibleVariablesManagerTest
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		variablesManager.pushLocalContext(new FlexibleVariablesContext());
-		String varName="day";
+		Name varName=Name.instanceOf("day");
 		try
 		{
 			assertSame(Undefined.getInstance(), variablesManager.getLocalVariable(varName));
@@ -102,7 +103,7 @@ public class FlexibleVariablesManagerTest
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		variablesManager.pushLocalContext(new FlexibleVariablesContext());
-		String varName="day";
+		Name varName=Name.instanceOf("day");
 		variablesManager.setLocalVariable(varName, "monday");
 		try
 		{
@@ -120,7 +121,7 @@ public class FlexibleVariablesManagerTest
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		variablesManager.pushLocalContext(new FlexibleVariablesContext());
-		String varName="day";
+		Name varName=Name.instanceOf("day");
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.setLocalVariable(varName, "tuesday");
 		try
@@ -139,7 +140,7 @@ public class FlexibleVariablesManagerTest
 	{
 		VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 		variablesManager.pushLocalContext(new FlexibleVariablesContext());
-		String varName="day";
+		Name varName=Name.instanceOf("day");
 		variablesManager.setLocalVariable(varName, "monday");
 		variablesManager.removeLocalVariable(varName);
 		try
@@ -161,10 +162,10 @@ public class FlexibleVariablesManagerTest
 		{
 			VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 			variablesManager.pushLocalContext(new FlexibleVariablesContext());
-			String varName1="day";
+			Name varName1=Name.instanceOf("day");
 			variablesManager.setLocalVariable(varName1, "monday");
 			assertEquals("monday", variablesManager.getLocalVariable(varName1));
-			String varName2="month";
+			Name varName2=Name.instanceOf("month");
 			variablesManager.setLocalVariable(varName2, "january");
 			assertEquals("january", variablesManager.getLocalVariable(varName2));
 

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
@@ -15,13 +16,15 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class CollectionLoopInstruction extends AbstractLoopInstruction
 {
-	private final String varName;
+	private static final long serialVersionUID=-2983484473855048707L;
+
+	private final Name varName;
 
 	private final Expression expressionCollection;
 
 	private Iterator<Object> iterator;
 
-	public CollectionLoopInstruction(Expression preCondition, Instruction innerInstruction, Expression postCondition, String varName, Expression expressionCollection)
+	public CollectionLoopInstruction(Expression preCondition, Instruction innerInstruction, Expression postCondition, Name varName, Expression expressionCollection)
 	{
 		super(preCondition, innerInstruction, postCondition);
 		this.varName=varName;

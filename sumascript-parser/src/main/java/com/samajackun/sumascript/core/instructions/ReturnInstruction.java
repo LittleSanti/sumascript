@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.jumps.ReturnJump;
 
 public class ReturnInstruction implements Instruction
 {
+	private static final long serialVersionUID=1644278302071638432L;
+
 	private final Expression expression;
 
 	public ReturnInstruction(Expression expression)
@@ -21,7 +23,7 @@ public class ReturnInstruction implements Instruction
 	public Jump execute(Context context)
 		throws ExecutionException
 	{
-		return new ReturnJump(expression);
+		return new ReturnJump(this.expression);
 	}
 
 }

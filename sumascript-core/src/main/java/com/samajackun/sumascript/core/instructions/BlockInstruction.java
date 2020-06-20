@@ -11,6 +11,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class BlockInstruction implements Instruction
 {
+	private static final long serialVersionUID=-184568126468661280L;
+
 	private final List<Instruction> instructions;
 
 	public BlockInstruction(List<Instruction> instructions)

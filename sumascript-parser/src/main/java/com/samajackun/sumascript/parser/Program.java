@@ -1,5 +1,6 @@
 package com.samajackun.sumascript.parser;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,8 +10,10 @@ import com.samajackun.rodas.core.eval.functions.Function;
 import com.samajackun.sumascript.core.Namespace;
 import com.samajackun.sumascript.core.instructions.BlockInstruction;
 
-public class Program
+public class Program implements Serializable
 {
+	private static final long serialVersionUID=1532897221852451925L;
+
 	private final BlockInstruction block;
 
 	private final Set<Namespace> namespaceReferences=new HashSet<>();

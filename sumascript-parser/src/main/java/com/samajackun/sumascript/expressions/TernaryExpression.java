@@ -1,5 +1,8 @@
 package com.samajackun.sumascript.expressions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.core.eval.EvaluatorFactory;
@@ -11,33 +14,31 @@ import com.samajackun.sumascript.core.instructions.ConditionalsUtils;
 
 public class TernaryExpression implements Expression
 {
-	private final Expression conditional;
+	private static final long serialVersionUID=5620979812746429280L;
 
-	private final Expression direct;
-
-	private final Expression inverse;
+	private final List<Expression> operands=new ArrayList<>(3);
 
 	public TernaryExpression(Expression conditional, Expression direct, Expression inverse)
 	{
 		super();
-		this.conditional=conditional;
-		this.direct=direct;
-		this.inverse=inverse;
+		this.operands.add(conditional);
+		this.operands.add(direct);
+		this.operands.add(inverse);
 	}
 
 	public Expression getConditional()
 	{
-		return conditional;
+		return this.operands.get(0);
 	}
 
 	public Expression getDirect()
 	{
-		return direct;
+		return this.operands.get(1);
 	}
 
 	public Expression getInverse()
 	{
-		return inverse;
+		return this.operands.get(2);
 	}
 
 	@Override
@@ -51,10 +52,10 @@ public class TernaryExpression implements Expression
 	public Object evaluate(Context context, EvaluatorFactory evaluatorFactory)
 		throws EvaluationException
 	{
-		Object conditionalValue=conditional.evaluate(context, evaluatorFactory);
+		Object conditionalValue=this.operands.get(0).evaluate(context, evaluatorFactory);
 		Object result=ConditionalsUtils.isTrue(conditionalValue)
-			? direct.evaluate(context, evaluatorFactory)
-			: inverse.evaluate(context, evaluatorFactory);
+			? this.operands.get(1).evaluate(context, evaluatorFactory)
+			: this.operands.get(2).evaluate(context, evaluatorFactory);
 		return result;
 	}
 
@@ -63,9 +64,9 @@ public class TernaryExpression implements Expression
 		throws EvaluationException
 	{
 		Expression reduced;
-		Expression reducedDirect=direct.reduce(evaluatorFactory);
-		Expression reducedInverse=inverse.reduce(evaluatorFactory);
-		Expression reducedConditional=conditional.reduce(evaluatorFactory);
+		Expression reducedDirect=this.operands.get(1).reduce(evaluatorFactory);
+		Expression reducedInverse=this.operands.get(2).reduce(evaluatorFactory);
+		Expression reducedConditional=this.operands.get(0).reduce(evaluatorFactory);
 		if (reducedConditional instanceof ConstantExpression)
 		{
 			Object conditionalValue=((ConstantExpression)reducedConditional).getValue();
@@ -84,10 +85,16 @@ public class TernaryExpression implements Expression
 	public Datatype getDatatype(Context context, EvaluatorFactory evaluatorFactory)
 		throws MetadataException
 	{
-		Datatype d1=direct.getDatatype(context, evaluatorFactory);
-		Datatype d2=inverse.getDatatype(context, evaluatorFactory);
+		Datatype d1=this.operands.get(1).getDatatype(context, evaluatorFactory);
+		Datatype d2=this.operands.get(2).getDatatype(context, evaluatorFactory);
 		return d1 == d2
 			? d1
 			: Datatype.UNKNOWN;
+	}
+
+	@Override
+	public List<Expression> getSubExpressions()
+	{
+		return this.operands;
 	}
 }

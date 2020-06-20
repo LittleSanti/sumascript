@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.expressions.Assignable;
 
 public class DivideAssignationInstruction extends AssignationInstruction
 {
+	private static final long serialVersionUID=5610542097501445528L;
+
 	public DivideAssignationInstruction(Assignable leftSide, Expression rightSide)
 	{
 		super(leftSide, rightSide);

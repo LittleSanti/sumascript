@@ -10,6 +10,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class EchoErrInstruction implements Instruction
 {
+	private static final long serialVersionUID=-3718856097420096051L;
+
 	private final Expression expression;
 
 	public EchoErrInstruction(Expression expression)

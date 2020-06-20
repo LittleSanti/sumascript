@@ -12,6 +12,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class AssignationInstruction implements Instruction
 {
+	private static final long serialVersionUID=8524622322183083120L;
+
 	private final Assignable leftSide;
 
 	private final Expression rightSide;
@@ -44,4 +46,4 @@ public class AssignationInstruction implements Instruction
 	{
 		return rightSide2.evaluate(context, SumaEvaluatorFactory.getInstance());
 	}
-}
+	}

@@ -10,6 +10,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class VariableAssignationsInstruction implements Instruction
 {
+	private static final long serialVersionUID=3171121727622292925L;
+
 	private final List<AbstractVariableAssignation> list;
 
 	public VariableAssignationsInstruction(List<AbstractVariableAssignation> list)

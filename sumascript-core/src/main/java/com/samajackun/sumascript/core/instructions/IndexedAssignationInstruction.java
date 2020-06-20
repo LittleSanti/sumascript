@@ -13,6 +13,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class IndexedAssignationInstruction implements Instruction
 {
+	private static final long serialVersionUID=8759349115486720055L;
+
 	private final Expression base;
 
 	private final Expression index;

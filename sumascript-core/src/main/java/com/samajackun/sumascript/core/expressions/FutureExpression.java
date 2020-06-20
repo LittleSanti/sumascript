@@ -9,6 +9,7 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class FutureExpression implements Expression
 {
+	private static final long serialVersionUID = 3105784201724068206L;
 	private final Expression targetExpression;
 
 	public FutureExpression(Expression targetExpression)

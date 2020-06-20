@@ -1,8 +1,12 @@
 package com.samajackun.sumascript.core.expressions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.core.eval.EvaluatorFactory;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.model.Datatype;
 import com.samajackun.rodas.core.model.Expression;
@@ -10,9 +14,13 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class NearestVariableExpression implements Expression, Assignable
 {
-	private final String varName;
+	private static final long serialVersionUID=-7224765905160309662L;
 
-	public NearestVariableExpression(String varName)
+	private final Name varName;
+
+	private final List<Expression> subexpressions=new ArrayList<>();
+
+	public NearestVariableExpression(Name varName)
 	{
 		super();
 		this.varName=varName;
@@ -42,7 +50,7 @@ public class NearestVariableExpression implements Expression, Assignable
 	@Override
 	public String toCode()
 	{
-		return this.varName;
+		return this.varName.asString();
 	}
 
 	@Override
@@ -65,5 +73,16 @@ public class NearestVariableExpression implements Expression, Assignable
 		throws EvaluationException
 	{
 		return this;
+	}
+
+	@Override
+	public List<Expression> getSubExpressions()
+	{
+		return this.subexpressions;
+	}
+
+	public void addSubexpression(Expression subexpression)
+	{
+		this.subexpressions.add(subexpression);
 	}
 }

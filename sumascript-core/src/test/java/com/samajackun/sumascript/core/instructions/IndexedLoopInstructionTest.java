@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.AddExpression;
 import com.samajackun.rodas.core.model.EqualsExpression;
 import com.samajackun.rodas.core.model.Expression;
@@ -33,11 +34,11 @@ public class IndexedLoopInstructionTest
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
 		List<AbstractVariableAssignation> assignations=Arrays.asList(new AbstractVariableAssignation[] {
-			new LocalVariableDeclarationAndAssignation("i", new NumericConstantExpression("0", 0))
+			new LocalVariableDeclarationAndAssignation(Name.instanceOf("i"), new NumericConstantExpression("0", 0))
 		});
-		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression("i"), new NumericConstantExpression("0", 0));
-		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression("i"));
-		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation("i", new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression("i"))));
+		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression(Name.instanceOf("i")), new NumericConstantExpression("0", 0));
+		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(Name.instanceOf("i")));
+		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation(Name.instanceOf("i"), new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression(Name.instanceOf("i")))));
 		IndexedLoopInstruction instruction=new IndexedLoopInstruction(assignations, loopingCondition, stepInstruction, postStepInstructions);
 		try
 		{
@@ -61,11 +62,11 @@ public class IndexedLoopInstructionTest
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
 		List<AbstractVariableAssignation> assignations=Arrays.asList(new AbstractVariableAssignation[] {
-			new LocalVariableDeclarationAndAssignation("i", new NumericConstantExpression("0", 0))
+			new LocalVariableDeclarationAndAssignation(Name.instanceOf("i"), new NumericConstantExpression("0", 0))
 		});
-		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression("i"), new NumericConstantExpression("1", 1));
-		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression("i"));
-		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation("i", new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression("i"))));
+		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression(Name.instanceOf("i")), new NumericConstantExpression("1", 1));
+		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(Name.instanceOf("i")));
+		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation(Name.instanceOf("i"), new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression(Name.instanceOf("i")))));
 		IndexedLoopInstruction instruction=new IndexedLoopInstruction(assignations, loopingCondition, stepInstruction, postStepInstructions);
 		try
 		{
@@ -89,11 +90,11 @@ public class IndexedLoopInstructionTest
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
 		List<AbstractVariableAssignation> assignations=Arrays.asList(new AbstractVariableAssignation[] {
-			new LocalVariableDeclarationAndAssignation("i", new NumericConstantExpression("0", 0))
+			new LocalVariableDeclarationAndAssignation(Name.instanceOf("i"), new NumericConstantExpression("0", 0))
 		});
-		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression("i"), new NumericConstantExpression("5", 5));
-		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression("i"));
-		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation("i", new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression("i"))));
+		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression(Name.instanceOf("i")), new NumericConstantExpression("5", 5));
+		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(Name.instanceOf("i")));
+		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation(Name.instanceOf("i"), new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression(Name.instanceOf("i")))));
 		IndexedLoopInstruction instruction=new IndexedLoopInstruction(assignations, loopingCondition, stepInstruction, postStepInstructions);
 		try
 		{
@@ -117,18 +118,18 @@ public class IndexedLoopInstructionTest
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
 		List<AbstractVariableAssignation> assignations=Arrays.asList(new AbstractVariableAssignation[] {
-			new LocalVariableDeclarationAndAssignation("i", new NumericConstantExpression("0", 0))
+			new LocalVariableDeclarationAndAssignation(Name.instanceOf("i"), new NumericConstantExpression("0", 0))
 		});
-		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression("i"), new NumericConstantExpression("5", 5));
+		Expression loopingCondition=new LowerThanExpression("<", new NearestVariableExpression(Name.instanceOf("i")), new NumericConstantExpression("5", 5));
 		Instruction stepInstruction=new BlockInstruction(
 		// @formatter:off
 			Arrays.<Instruction>asList(
-				new EchoOutInstruction(new NearestVariableExpression("i")),
-				new IfInstruction(new EqualsExpression("=", new NearestVariableExpression("i"), new NumericConstantExpression("3", 3)), BreakInstruction.getInstance(), null)
+				new EchoOutInstruction(new NearestVariableExpression(Name.instanceOf("i"))),
+				new IfInstruction(new EqualsExpression("=", new NearestVariableExpression(Name.instanceOf("i")), new NumericConstantExpression("3", 3)), BreakInstruction.getInstance(), null)
 			)
 		// @formatter:on
 		);
-		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation("i", new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression("i"))));
+		List<Instruction> postStepInstructions=Arrays.asList(new LocalVariableAssignation(Name.instanceOf("i"), new AddExpression("+", new NumericConstantExpression("1", 1), new NearestVariableExpression(Name.instanceOf("i")))));
 		IndexedLoopInstruction instruction=new IndexedLoopInstruction(assignations, loopingCondition, stepInstruction, postStepInstructions);
 		try
 		{

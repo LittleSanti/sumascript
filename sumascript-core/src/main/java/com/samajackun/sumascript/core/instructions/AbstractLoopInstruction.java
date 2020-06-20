@@ -10,6 +10,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 abstract class AbstractLoopInstruction implements Instruction
 {
+	private static final long serialVersionUID=-2144776615610322307L;
+
 	private final Expression preCondition;
 
 	private final Expression postCondition;

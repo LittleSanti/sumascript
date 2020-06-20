@@ -2,6 +2,7 @@ package com.samajackun.sumascript.parser;
 
 import java.io.IOException;
 
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.ExpressionCollection;
 import com.samajackun.rodas.core.model.FunctionCallExpression;
@@ -55,7 +56,7 @@ public final class SumaExpressionParser extends GenericExpressionParser
 					switch (token.getType())
 					{
 						case SqlTokenTypes.IDENTIFIER:
-							expression=new NearestVariableExpression(token.getValue());
+							expression=new NearestVariableExpression(Name.instanceOf(token.getValue()));
 							state=State.IDENTIFIER_READ;
 							break;
 						default:

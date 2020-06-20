@@ -12,6 +12,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class ChangeCurrentDirectoryInstruction implements Instruction
 {
+	private static final long serialVersionUID=-5466003702265616007L;
+
 	private final Expression newDirectory;
 
 	public ChangeCurrentDirectoryInstruction(Expression newDirectory)

@@ -1,7 +1,9 @@
 package com.samajackun.sumascript.expressions;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.samajackun.rodas.core.eval.Context;
@@ -13,6 +15,8 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class JsonExpression implements Expression
 {
+	private static final long serialVersionUID=5138947492927924925L;
+
 	private final LinkedHashMap<String, Expression> map;
 
 	public JsonExpression(LinkedHashMap<String, Expression> map)
@@ -75,4 +79,50 @@ public class JsonExpression implements Expression
 		return this.map;
 	}
 
+	@Override
+	public List<Expression> getSubExpressions()
+	{
+		return new ArrayList<>(this.map.values());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime=31;
+		int result=1;
+		result=prime * result + ((this.map == null)
+			? 0
+			: this.map.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (getClass() != obj.getClass())
+		{
+			return false;
+		}
+		JsonExpression other=(JsonExpression)obj;
+		if (this.map == null)
+		{
+			if (other.map != null)
+			{
+				return false;
+			}
+		}
+		else if (!this.map.equals(other.map))
+		{
+			return false;
+		}
+		return true;
+	}
 }

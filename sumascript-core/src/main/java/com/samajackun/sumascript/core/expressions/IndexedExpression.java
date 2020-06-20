@@ -13,6 +13,8 @@ import com.samajackun.sumascript.core.runtime.Undefined;
 
 public class IndexedExpression implements Expression, Assignable
 {
+	private static final long serialVersionUID = 8903020730866747689L;
+
 	private final Expression base;
 
 	private final Expression index;
@@ -40,7 +42,7 @@ public class IndexedExpression implements Expression, Assignable
 		Object value;
 		if (baseValue instanceof List)
 		{
-			if (indexValue instanceof Integer)
+			if (indexValue instanceof Number)
 			{
 				List<Object> list=(List<Object>)baseValue;
 				int p=((Number)indexValue).intValue();

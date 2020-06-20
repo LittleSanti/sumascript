@@ -4,6 +4,10 @@ import com.samajackun.rodas.sql.tokenizer.Token;
 
 public class SumaTokens
 {
+	public static final Token KEYWORD_ECHO_OUT=new Token(SumaTokenTypes.KEYWORD_ECHO_OUT, "echoout");
+
+	public static final Token KEYWORD_ECHO_ERR=new Token(SumaTokenTypes.KEYWORD_ECHO_ERR, "echoerr");
+
 	public static final Token KEYWORD_FUNCTION=new Token(SumaTokenTypes.KEYWORD_FUNCTION, "function");
 
 	public static final Token KEYWORD_FUTURE=new Token(SumaTokenTypes.KEYWORD_FUTURE, "future");

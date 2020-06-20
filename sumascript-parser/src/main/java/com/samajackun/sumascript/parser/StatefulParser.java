@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.ConstantExpression;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.parsing.parser.ParserException;
@@ -23,6 +24,8 @@ import com.samajackun.sumascript.core.instructions.BlockInstruction;
 import com.samajackun.sumascript.core.instructions.CollectionLoopInstruction;
 import com.samajackun.sumascript.core.instructions.DecrementInstruction;
 import com.samajackun.sumascript.core.instructions.DivideAssignationInstruction;
+import com.samajackun.sumascript.core.instructions.EchoErrInstruction;
+import com.samajackun.sumascript.core.instructions.EchoOutInstruction;
 import com.samajackun.sumascript.core.instructions.ExpressionInstruction;
 import com.samajackun.sumascript.core.instructions.FunctionDeclarationInstruction;
 import com.samajackun.sumascript.core.instructions.IfInstruction;
@@ -156,6 +159,12 @@ public class StatefulParser
 					break;
 				case SumaTokenTypes.KEYWORD_FUNCTION:
 					instruction=parseFunctionDefinition(tokenizer, parserContext);
+					break;
+				case SumaTokenTypes.KEYWORD_ECHO_OUT:
+					instruction=parseEchoOut(tokenizer, parserContext);
+					break;
+				case SumaTokenTypes.KEYWORD_ECHO_ERR:
+					instruction=parseEchoErr(tokenizer, parserContext);
 					break;
 				default:
 					tokenizer.pushBack(token);
@@ -380,7 +389,7 @@ public class StatefulParser
 					case SumaTokenTypes.OPERATOR_EQUALS:
 						initialization=parseExpression(tokenizer, parserContext);
 						// TODO Hay que chequear que la variable no estuviera ya declarada.
-						LocalVariableAssignation variableAssignation=new LocalVariableAssignation(tokenName.getValue(), initialization);
+						LocalVariableAssignation variableAssignation=new LocalVariableAssignation(Name.instanceOf(tokenName.getValue()), initialization);
 						variables.add(variableAssignation);
 						token=tokenizer.nextOptionalToken();
 						if (token != null)
@@ -398,7 +407,7 @@ public class StatefulParser
 						break;
 					case SumaTokenTypes.COMMA:
 						// TODO Hay que chequear que la variable no estuviera ya declarada.
-						LocalVariableAssignation variableAssignation2=new LocalVariableAssignation(tokenName.getValue(), UndefinedConstantExpression.getInstance());
+						LocalVariableAssignation variableAssignation2=new LocalVariableAssignation(Name.instanceOf(tokenName.getValue()), UndefinedConstantExpression.getInstance());
 						variables.add(variableAssignation2);
 						break;
 					case SumaTokenTypes.NEWLINE:
@@ -413,7 +422,7 @@ public class StatefulParser
 			}
 			else
 			{
-				LocalVariableAssignation variableAssignation2=new LocalVariableAssignation(tokenName.getValue(), UndefinedConstantExpression.getInstance());
+				LocalVariableAssignation variableAssignation2=new LocalVariableAssignation(Name.instanceOf(tokenName.getValue()), UndefinedConstantExpression.getInstance());
 				variables.add(variableAssignation2);
 				looping=false;
 			}
@@ -540,7 +549,7 @@ public class StatefulParser
 			{
 				postExpression=null;
 			}
-			loopInstruction=new CollectionLoopInstruction(preExpression, innerInstruction, postExpression, tokenVariable.getValue(), expressionCollection);
+			loopInstruction=new CollectionLoopInstruction(preExpression, innerInstruction, postExpression, Name.instanceOf(tokenVariable.getValue()), expressionCollection);
 		}
 		else
 		{
@@ -647,20 +656,20 @@ public class StatefulParser
 	{
 		Token token=tokenizer.matchToken(SumaTokenTypes.IDENTIFIER);
 		String functionName=token.getValue();
-		List<String> parameterNames=parseParameterNames(tokenizer, parserContext);
+		List<Name> parameterNames=parseParameterNames(tokenizer, parserContext);
 		tokenizer.matchToken(SumaTokenTypes.KEY_START);
 		Instruction body=parseInstruction(tokenizer, parserContext);
 		tokenizer.matchToken(SumaTokenTypes.KEY_END);
-		NamedCodedFunction codedFunction=new NamedCodedFunction(parameterNames, body, functionName);
+		NamedCodedFunction codedFunction=new NamedCodedFunction(parameterNames, body, Name.instanceOf(functionName));
 		return new FunctionDeclarationInstruction(codedFunction);
 	}
 
-	private List<String> parseParameterNames(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	private List<Name> parseParameterNames(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
 		throws IOException,
 		ParserException
 	{
 		tokenizer.matchToken(SumaTokenTypes.PARENTHESIS_START);
-		List<String> params=new ArrayList<>();
+		List<Name> params=new ArrayList<>();
 		boolean looping=true;
 		boolean readIdentifier=false;
 		do
@@ -687,7 +696,7 @@ public class StatefulParser
 						looping=false;
 						break;
 					case SumaTokenTypes.IDENTIFIER:
-						params.add(token.getValue());
+						params.add(Name.instanceOf(token.getValue()));
 						break;
 					default:
 						throw new UnexpectedTokenException(token, SumaTokenTypes.COMMA, SumaTokenTypes.PARENTHESIS_END);
@@ -707,12 +716,30 @@ public class StatefulParser
 		return new ReturnInstruction(expression);
 	}
 
+	private Instruction parseEchoOut(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+		throws IOException,
+		ParserException,
+		EvaluationException
+	{
+		Expression expression=parseExpression(tokenizer, parserContext);
+		return new EchoOutInstruction(expression);
+	}
+
+	private Instruction parseEchoErr(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+		throws IOException,
+		ParserException,
+		EvaluationException
+	{
+		Expression expression=parseExpression(tokenizer, parserContext);
+		return new EchoErrInstruction(expression);
+	}
+
 	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
 		throws IOException,
 		ParserException,
 		EvaluationException
 	{
-		List<String> parameterNames=parseParameterNames(tokenizer, parserContext);
+		List<Name> parameterNames=parseParameterNames(tokenizer, parserContext);
 		tokenizer.matchToken(SumaTokenTypes.KEY_START);
 		Instruction body=parseInstruction(tokenizer, parserContext);
 		tokenizer.matchToken(SumaTokenTypes.KEY_END);

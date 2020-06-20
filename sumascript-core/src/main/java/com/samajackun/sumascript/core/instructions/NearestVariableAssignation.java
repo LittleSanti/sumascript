@@ -2,6 +2,7 @@ package com.samajackun.sumascript.core.instructions;
 
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Jump;
@@ -9,7 +10,9 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class NearestVariableAssignation extends AbstractVariableAssignation
 {
-	public NearestVariableAssignation(String name, Expression expression)
+	private static final long serialVersionUID=-8488132082846031892L;
+
+	public NearestVariableAssignation(Name name, Expression expression)
 	{
 		super(name, expression);
 	}

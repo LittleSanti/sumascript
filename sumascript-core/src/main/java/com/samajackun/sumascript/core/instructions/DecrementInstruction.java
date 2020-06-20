@@ -11,6 +11,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class DecrementInstruction implements Instruction
 {
+	private static final long serialVersionUID=6396490850487012828L;
+
 	private final Assignable leftSide;
 
 	public DecrementInstruction(Assignable leftSide)

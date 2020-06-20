@@ -42,6 +42,8 @@ public class SumaTokenizer extends SqlTokenizer
 		Map<String, String> map=Arrays.asList(
 		// @formatter:off
 			SumaTokens.KEYWORD_FUNCTION,
+			SumaTokens.KEYWORD_ECHO_OUT,
+			SumaTokens.KEYWORD_ECHO_ERR,
 			SumaTokens.KEYWORD_FUTURE,
 			SumaTokens.KEYWORD_NULL,
 			SumaTokens.KEYWORD_FOR,

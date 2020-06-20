@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.runtime.NamedCodedFunction;
 
 public class FunctionDeclarationInstruction implements Instruction
 {
+	private static final long serialVersionUID=-4869462132467673157L;
+
 	private final NamedCodedFunction codedFunction;
 
 	public FunctionDeclarationInstruction(NamedCodedFunction codedFunction)
@@ -19,7 +21,7 @@ public class FunctionDeclarationInstruction implements Instruction
 
 	public NamedCodedFunction getCodedFunction()
 	{
-		return codedFunction;
+		return this.codedFunction;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class FunctionDeclarationInstruction implements Instruction
 		throws ExecutionException
 	{
 		// En el nivel de contexto más alto, localContext==globalContext.
-		context.getVariablesManager().getLocalVariablesContext().set(codedFunction.getName(), codedFunction);
+		context.getVariablesManager().peekLocalContext().set(this.codedFunction.getName(), this.codedFunction);
 		return NoJump.getInstance();
 	}
 

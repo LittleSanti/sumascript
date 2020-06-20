@@ -3,6 +3,7 @@ package com.samajackun.sumascript.core.instructions;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
@@ -19,7 +20,7 @@ public class LocalVariableDeclarationAndAssignationTest
 	{
 		try
 		{
-			String varName="month";
+			Name varName=Name.instanceOf("month");
 			Expression expression=new TextConstantExpression("january");
 			MyContext context=new MyContext();
 			context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());

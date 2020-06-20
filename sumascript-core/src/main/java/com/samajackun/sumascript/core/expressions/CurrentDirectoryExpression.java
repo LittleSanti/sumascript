@@ -10,6 +10,8 @@ import com.samajackun.rodas.core.model.MetadataException;
 public class CurrentDirectoryExpression implements Expression
 {
 
+	private static final long serialVersionUID = 5835055840601152160L;
+
 	@Override
 	public String toCode()
 	{

@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.expressions.Assignable;
 
 public class MultiplyAssignationInstruction extends AssignationInstruction
 {
+	private static final long serialVersionUID=4231619621077056445L;
+
 	public MultiplyAssignationInstruction(Assignable leftSide, Expression rightSide)
 	{
 		super(leftSide, rightSide);

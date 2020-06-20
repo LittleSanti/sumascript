@@ -13,6 +13,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class SwitchInstruction implements Instruction
 {
+	private static final long serialVersionUID=8782778796029370037L;
+
 	private final Expression expression;
 
 	private final List<Pair> pairs;

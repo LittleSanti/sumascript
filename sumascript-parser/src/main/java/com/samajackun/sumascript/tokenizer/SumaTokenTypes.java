@@ -36,6 +36,10 @@ public final class SumaTokenTypes
 
 	public static final String KEYWORD_THROW="suma.keyword_throw";
 
+	public static final String KEYWORD_ECHO_OUT="suma.keyword_echo_out";
+
+	public static final String KEYWORD_ECHO_ERR="suma.keyword_echo_err";
+
 	public static final String KEYWORD_EXIT="suma.keyword_exit";
 
 	public static final String KEYWORD_UNDEFINED="suma.keyword_undefined";

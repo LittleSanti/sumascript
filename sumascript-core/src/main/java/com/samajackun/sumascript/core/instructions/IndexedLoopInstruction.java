@@ -11,6 +11,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class IndexedLoopInstruction extends AbstractLoopInstruction
 {
+	private static final long serialVersionUID=6337991806370145295L;
+
 	private final List<AbstractVariableAssignation> assignations;
 
 	private final List<Instruction> postStepInstructions;

@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import com.samajackun.rodas.core.model.Expression;
+import com.samajackun.rodas.core.model.IdentifierExpression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
 import com.samajackun.rodas.parsing.parser.ParserException;
 import com.samajackun.rodas.parsing.parser.UnexpectedTokenException;
 import com.samajackun.rodas.sql.parser.GenericArithmeticExpressionParser;
 import com.samajackun.rodas.sql.parser.ParserContext;
 import com.samajackun.rodas.sql.tokenizer.AbstractMatchingTokenizer;
+import com.samajackun.rodas.sql.tokenizer.SqlTokenTypes;
 import com.samajackun.rodas.sql.tokenizer.Token;
+import com.samajackun.sumascript.core.expressions.IndexedExpression;
+import com.samajackun.sumascript.core.expressions.ScopedExpression;
 import com.samajackun.sumascript.expressions.ArrayExpression;
 import com.samajackun.sumascript.expressions.JsonExpression;
 import com.samajackun.sumascript.expressions.UndefinedConstantExpression;
@@ -183,4 +187,44 @@ public final class SumaArithmeticExpressionParser extends GenericArithmeticExpre
 		return array;
 	}
 
+	@Override
+	protected Expression unexpectedTokenAfterIdentifier(AbstractMatchingTokenizer tokenizer, ParserContext parserContext, Token identifierToken, Token unexpectedToken)
+		throws ParserException,
+		IOException
+	{
+		Expression expression;
+		if (unexpectedToken.getType().equals(SumaTokenTypes.BRACKET_START))
+		{
+			Expression indexExpression=getParserFactory().getExpressionParser().parse(tokenizer, parserContext);
+			expression=new IndexedExpression(new IdentifierExpression(identifierToken.getValue()), indexExpression);
+			tokenizer.matchToken(SumaTokenTypes.BRACKET_END);
+		}
+		else
+		{
+			expression=null;
+			// throw new UnexpectedTokenException(unexpectedToken, SumaTokenTypes.BRACKET_START);
+		}
+		return expression;
+	}
+
+	@Override
+	protected Expression parsePrefixedExpression(AbstractMatchingTokenizer tokenizer, String prefix)
+		throws ParserException,
+		IOException
+	{
+		Expression expression=null;
+		Token token=tokenizer.nextToken();
+		if (token != null)
+		{
+			switch (token.getType())
+			{
+				case SqlTokenTypes.IDENTIFIER:
+					expression=new ScopedExpression(new IdentifierExpression(prefix), token.getValue());
+					break;
+				default:
+					throw new UnexpectedTokenException(token);
+			}
+		}
+		return expression;
+	}
 }

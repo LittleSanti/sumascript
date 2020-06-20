@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.expressions.Assignable;
 
 public class SubstractAssignationInstruction extends AssignationInstruction
 {
+	private static final long serialVersionUID=2123776218317819244L;
+
 	public SubstractAssignationInstruction(Assignable leftSide, Expression rightSide)
 	{
 		super(leftSide, rightSide);

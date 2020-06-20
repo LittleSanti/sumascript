@@ -11,6 +11,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class IncrementInstruction implements Instruction
 {
+	private static final long serialVersionUID=6686716761151925408L;
+
 	private final Assignable leftSide;
 
 	public IncrementInstruction(Assignable leftSide)

@@ -11,6 +11,8 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class ReferencedExpression implements Expression, Assignable
 {
+	private static final long serialVersionUID = 2956336391375262467L;
+
 	private final Expression base;
 
 	private final Expression index;

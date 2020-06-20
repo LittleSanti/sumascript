@@ -10,6 +10,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class IfInstruction implements Instruction
 {
+	private static final long serialVersionUID=4715129974263967644L;
+
 	private final Expression expression;
 
 	private final Instruction afirmative;

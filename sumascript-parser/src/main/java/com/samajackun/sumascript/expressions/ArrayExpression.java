@@ -7,6 +7,8 @@ import com.samajackun.rodas.core.model.ExpressionList;
 
 public class ArrayExpression extends ExpressionList
 {
+	private static final long serialVersionUID=1147881606659694165L;
+
 	public ArrayExpression()
 	{
 	}

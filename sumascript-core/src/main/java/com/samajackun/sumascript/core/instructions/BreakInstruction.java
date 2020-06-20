@@ -8,6 +8,8 @@ import com.samajackun.sumascript.core.jumps.BreakJump;
 
 public final class BreakInstruction implements Instruction
 {
+	private static final long serialVersionUID=-4360724533032190553L;
+
 	private static final BreakInstruction INSTANCE=new BreakInstruction();
 
 	public static BreakInstruction getInstance()

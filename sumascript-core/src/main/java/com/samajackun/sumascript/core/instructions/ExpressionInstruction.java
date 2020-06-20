@@ -10,6 +10,8 @@ import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class ExpressionInstruction implements Instruction
 {
+	private static final long serialVersionUID=-5851997518386865412L;
+
 	private final Expression expression;
 
 	public ExpressionInstruction(Expression expression)

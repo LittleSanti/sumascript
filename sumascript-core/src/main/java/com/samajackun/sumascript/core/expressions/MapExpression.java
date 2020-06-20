@@ -12,6 +12,7 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class MapExpression implements Expression
 {
+	private static final long serialVersionUID = 7887227115596713136L;
 	private final Map<String, Expression> map=new LinkedHashMap<>();
 
 	public MapExpression()

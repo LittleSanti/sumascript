@@ -9,6 +9,8 @@ import com.samajackun.sumascript.core.jumps.ThrowJump;
 
 public class ThrowInstruction implements Instruction
 {
+	private static final long serialVersionUID=7740934042636077853L;
+
 	private final Expression thrownExpression;
 
 	public ThrowInstruction(Expression thrownExpression)

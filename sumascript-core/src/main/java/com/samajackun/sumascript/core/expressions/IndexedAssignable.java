@@ -9,7 +9,7 @@ import com.samajackun.rodas.core.model.MetadataException;
 
 public class IndexedAssignable implements Expression, Assignable
 {
-	// private final Assignable base;
+	private static final long serialVersionUID = 4984645667071338033L;
 
 	@Override
 	public String toCode()

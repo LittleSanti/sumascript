@@ -9,6 +9,7 @@ import java.io.StringWriter;
 
 import org.junit.Test;
 
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.ListConstantExpression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
 import com.samajackun.sumascript.core.ExecutionException;
@@ -28,7 +29,7 @@ public class CollectionLoopInstructionTest
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
-		String varName="a";
+		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		ListConstantExpression varExpression=new ListConstantExpression();
 		CollectionLoopInstruction instruction=new CollectionLoopInstruction(null, stepInstruction, null, varName, varExpression);
@@ -53,7 +54,7 @@ public class CollectionLoopInstructionTest
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
-		String varName="a";
+		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		ListConstantExpression varExpression=new ListConstantExpression();
 		varExpression.add(new TextConstantExpression("enero"));
@@ -81,7 +82,7 @@ public class CollectionLoopInstructionTest
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
-		String varName="a";
+		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		MapExpression varExpression=new MapExpression();
 		varExpression.put("dia", new TextConstantExpression("lunes"));
@@ -109,7 +110,7 @@ public class CollectionLoopInstructionTest
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
 		context.getScriptRuntime().setOut(new PrintWriter(out, true));
-		String varName="a";
+		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		TextConstantExpression varExpression=new TextConstantExpression("enero");
 		CollectionLoopInstruction instruction=new CollectionLoopInstruction(null, stepInstruction, null, varName, varExpression);

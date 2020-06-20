@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.functions.Function;
 import com.samajackun.rodas.core.eval.functions.FunctionEvaluationException;
 import com.samajackun.sumascript.core.ExecutionException;
@@ -13,20 +14,20 @@ import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
 
 public class CodedFunction implements Function
 {
-	private static final String PARAMETERS_NAME="arguments";
+	private static final Name PARAMETERS_NAME=Name.instanceOf("arguments");
 
-	private final List<String> parameterNames;
+	private final List<Name> parameterNames;
 
 	private final Instruction body;
 
-	public CodedFunction(List<String> parameterNames, Instruction body)
+	public CodedFunction(List<Name> parameterNames, Instruction body)
 	{
 		super();
 		this.parameterNames=parameterNames;
 		this.body=body;
 	}
 
-	public List<String> getParameterNames()
+	public List<Name> getParameterNames()
 	{
 		return this.parameterNames;
 	}
@@ -43,7 +44,7 @@ public class CodedFunction implements Function
 		context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
 		context.getVariablesManager().setLocalVariable(PARAMETERS_NAME, argumentValues);
 		int p=0;
-		for (String parameterName : this.parameterNames)
+		for (Name parameterName : this.parameterNames)
 		{
 			context.getVariablesManager().setLocalVariable(parameterName, argumentValues.get(p));
 			p++;

@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
+import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.functions.Function;
 import com.samajackun.rodas.core.eval.functions.FunctionEvaluationException;
 import com.samajackun.rodas.core.model.Expression;
@@ -35,8 +36,8 @@ public class FunctionCallExpresionTest
 		{
 			MyContext context=new MyContext();
 			Instruction body=Mockito.mock(Instruction.class);
-			when(body.execute(context)).thenReturn(new ReturnJump(new NearestVariableExpression("month")));
-			List<String> parameterNames=Arrays.asList("month");
+			when(body.execute(context)).thenReturn(new ReturnJump(new NearestVariableExpression(Name.instanceOf("month"))));
+			List<Name> parameterNames=Arrays.asList(Name.instanceOf("month"));
 			Function function=new CodedFunction(parameterNames, body);
 			Expression functionExpression=mock(Expression.class);
 			when(functionExpression.evaluate(context, SumaEvaluatorFactory.getInstance())).thenReturn(function);
