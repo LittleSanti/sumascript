@@ -6,6 +6,7 @@ import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.expressions.Assignable;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
@@ -35,5 +36,17 @@ public class IncrementInstruction implements Instruction
 		{
 			throw new ExecutionException(e);
 		}
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeIncrement(this);
+	}
+
+	public Assignable getLeftSide()
+	{
+		return this.leftSide;
 	}
 }

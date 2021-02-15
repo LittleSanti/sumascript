@@ -6,6 +6,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class EchoErrInstruction implements Instruction
@@ -33,5 +34,17 @@ public class EchoErrInstruction implements Instruction
 		{
 			throw new ExecutionException(e);
 		}
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeEchoErr(this);
+	}
+
+	public Expression getExpression()
+	{
+		return this.expression;
 	}
 }

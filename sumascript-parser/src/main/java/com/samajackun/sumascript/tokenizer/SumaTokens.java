@@ -38,6 +38,12 @@ public class SumaTokens
 
 	public static final Token KEYWORD_BREAK=new Token(SumaTokenTypes.KEYWORD_BREAK, "break");
 
+	public static final Token KEYWORD_TRY=new Token(SumaTokenTypes.KEYWORD_TRY, "try");
+
+	public static final Token KEYWORD_CATCH=new Token(SumaTokenTypes.KEYWORD_CATCH, "catch");
+
+	public static final Token KEYWORD_FINALLY=new Token(SumaTokenTypes.KEYWORD_FINALLY, "finally");
+
 	public static final Token KEYWORD_THROW=new Token(SumaTokenTypes.KEYWORD_THROW, "throw");
 
 	public static final Token KEYWORD_EXIT=new Token(SumaTokenTypes.KEYWORD_EXIT, "exit");

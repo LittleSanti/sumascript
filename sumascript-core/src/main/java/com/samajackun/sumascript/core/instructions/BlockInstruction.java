@@ -7,6 +7,7 @@ import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class BlockInstruction implements Instruction
@@ -37,5 +38,17 @@ public class BlockInstruction implements Instruction
 	private boolean canGoOn(Jump jump)
 	{
 		return !(jump.isBreak() || jump.isExit() || jump.isReturn() || jump.isThrow());
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeBlock(this);
+	}
+
+	public List<Instruction> getInstructions()
+	{
+		return this.instructions;
 	}
 }

@@ -91,4 +91,20 @@ abstract class AbstractLoopInstruction implements Instruction
 	{
 		return NoJump.getInstance();
 	}
+
+	public Expression getPreCondition()
+	{
+		return this.preCondition;
+	}
+
+	public Expression getPostCondition()
+	{
+		return this.postCondition;
+	}
+
+	public Instruction getInnerInstruction()
+	{
+		return this.innerInstruction;
+	}
+
 }

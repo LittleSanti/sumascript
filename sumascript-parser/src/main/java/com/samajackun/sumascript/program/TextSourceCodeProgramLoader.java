@@ -8,9 +8,11 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.parser.Program;
 import com.samajackun.sumascript.parser.SumaParseException;
 import com.samajackun.sumascript.parser.SumaParser;
+import com.samajackun.sumascript.serializer.SumaCodeInstructionSerializer;
 
 class TextSourceCodeProgramLoader implements ProgramLoader
 {
@@ -48,7 +50,11 @@ class TextSourceCodeProgramLoader implements ProgramLoader
 		// TODO Permitir especificar un encoding distinto
 		try (Writer writer=new OutputStreamWriter(output, StandardCharsets.ISO_8859_1))
 		{
-			writer.write(program.getBlock().toCode());
+			writer.write(program.getBlock().toCode(SumaCodeInstructionSerializer.getInstance()));
+		}
+		catch (SumaInstructionSerializerException e)
+		{
+			throw new IOException(e);
 		}
 	}
 }

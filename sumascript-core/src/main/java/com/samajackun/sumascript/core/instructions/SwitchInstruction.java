@@ -9,6 +9,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class SwitchInstruction implements Instruction
@@ -87,5 +88,27 @@ public class SwitchInstruction implements Instruction
 		{
 			return this.matchingValues;
 		}
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeSwitch(this);
+	}
+
+	public Expression getExpression()
+	{
+		return this.expression;
+	}
+
+	public List<Pair> getPairs()
+	{
+		return this.pairs;
+	}
+
+	public Instruction getDefaultInstruction()
+	{
+		return this.defaultInstruction;
 	}
 }

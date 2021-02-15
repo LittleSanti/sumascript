@@ -6,6 +6,7 @@ import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class VariableAssignationsInstruction implements Instruction
@@ -29,5 +30,17 @@ public class VariableAssignationsInstruction implements Instruction
 			variable.execute(context);
 		}
 		return NoJump.getInstance();
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeVariableAssignation(this);
+	}
+
+	public List<AbstractVariableAssignation> getList()
+	{
+		return this.list;
 	}
 }

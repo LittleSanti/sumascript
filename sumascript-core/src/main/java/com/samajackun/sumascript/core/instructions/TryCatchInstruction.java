@@ -5,6 +5,7 @@ import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 
 public class TryCatchInstruction implements Instruction
 {
@@ -36,5 +37,27 @@ public class TryCatchInstruction implements Instruction
 			context.getVariablesManager().removeLocalVariable(this.exceptionName);
 		}
 		return jump;
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeTryCatch(this);
+	}
+
+	public Instruction getTryInstruction()
+	{
+		return this.tryInstruction;
+	}
+
+	public Instruction getCatchInstruction()
+	{
+		return this.catchInstruction;
+	}
+
+	public Name getExceptionName()
+	{
+		return this.exceptionName;
 	}
 }

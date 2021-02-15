@@ -7,6 +7,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class IndexedLoopInstruction extends AbstractLoopInstruction
@@ -50,5 +51,22 @@ public class IndexedLoopInstruction extends AbstractLoopInstruction
 			jump=postStepInstruction.execute(context);
 		}
 		return jump;
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeIndexedLoop(this);
+	}
+
+	public List<AbstractVariableAssignation> getAssignations()
+	{
+		return this.assignations;
+	}
+
+	public List<Instruction> getPostStepInstructions()
+	{
+		return this.postStepInstructions;
 	}
 }

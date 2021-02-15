@@ -12,6 +12,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class CollectionLoopInstruction extends AbstractLoopInstruction
@@ -76,5 +77,22 @@ public class CollectionLoopInstruction extends AbstractLoopInstruction
 			}
 		}
 		return x;
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeCollectionLoop(this);
+	}
+
+	public Name getVarName()
+	{
+		return this.varName;
+	}
+
+	public Expression getExpressionCollection()
+	{
+		return this.expressionCollection;
 	}
 }

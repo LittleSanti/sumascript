@@ -6,6 +6,7 @@ import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
 public class NearestVariableAssignation extends AbstractVariableAssignation
@@ -24,12 +25,19 @@ public class NearestVariableAssignation extends AbstractVariableAssignation
 		try
 		{
 			Object value=getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
-			context.getVariablesManager().getVariablesContext(getName()).set(getName(), value);
+			context.getVariablesManager().setNearestVariable(getName(), value);
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)
 		{
 			throw new ExecutionException(e);
 		}
+	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeNearestVariableAssignation(this);
 	}
 }

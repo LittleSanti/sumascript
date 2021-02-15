@@ -7,6 +7,7 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.expressions.Assignable;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
@@ -46,4 +47,22 @@ public class AssignationInstruction implements Instruction
 	{
 		return rightSide2.evaluate(context, SumaEvaluatorFactory.getInstance());
 	}
+
+	@Override
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return serializer.serializeAssignation(this);
 	}
+
+	public Assignable getLeftSide()
+	{
+		return this.leftSide;
+	}
+
+	public Expression getRightSide()
+	{
+		return this.rightSide;
+	}
+
+}
