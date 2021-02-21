@@ -74,11 +74,13 @@ public final class SumaExpressionParser extends GenericExpressionParser
 							FunctionCallExpression functionExpression=new FunctionCallExpression(expression, arguments.getExpressions());
 							tokenizer.matchToken(SqlTokenTypes.PARENTHESIS_END);
 							expression=functionExpression;
+							state=State.COMPLETE;
 							break;
 						case SumaTokenTypes.BRACKET_START:
 							Expression index=parse(tokenizer, parserContext);
 							tokenizer.matchToken(SumaTokenTypes.BRACKET_END);
 							expression=new IndexedExpression(expression, index);
+							state=State.COMPLETE;
 							break;
 						case SumaTokenTypes.OPERATOR_EQUALS:
 						case SumaTokenTypes.OPERATOR_PLUS_EQUALS:

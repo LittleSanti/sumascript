@@ -5,7 +5,9 @@ import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.core.eval.EvaluatorFactory;
 import com.samajackun.rodas.core.eval.FunctionEvaluator;
 import com.samajackun.rodas.core.eval.evaluators.DefaultFunctionEvaluator;
+import com.samajackun.rodas.core.eval.functions.FunctionNotFoundException;
 import com.samajackun.rodas.core.model.Expression;
+import com.samajackun.sumascript.core.runtime.Undefined;
 
 public class SumaFunctionEvaluator extends DefaultFunctionEvaluator implements FunctionEvaluator
 {
@@ -22,6 +24,10 @@ public class SumaFunctionEvaluator extends DefaultFunctionEvaluator implements F
 		if (obj == null)
 		{
 			obj=functionExpression.evaluate(context, getEvaluatorFactory());
+			if (obj == Undefined.INSTANCE)
+			{
+				throw new FunctionNotFoundException(functionExpression.toCode());
+			}
 		}
 		return obj;
 	}

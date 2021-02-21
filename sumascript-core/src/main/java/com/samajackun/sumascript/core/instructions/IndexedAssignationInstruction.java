@@ -36,9 +36,9 @@ public class IndexedAssignationInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
-			Object indexValue=this.index.evaluate(context, SumaEvaluatorFactory.getInstance());
-			Object baseValue=this.base.evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=this.expression.evaluate(context, context.getEvaluatorFactory());
+			Object indexValue=this.index.evaluate(context, context.getEvaluatorFactory());
+			Object baseValue=this.base.evaluate(context, context.getEvaluatorFactory());
 			if (baseValue instanceof List)
 			{
 				if (indexValue instanceof Integer)

@@ -8,7 +8,7 @@ import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
 import com.samajackun.sumascript.core.jumps.NoJump;
 
-abstract class AbstractLoopInstruction implements Instruction
+public abstract class AbstractLoopInstruction implements Instruction
 {
 	private static final long serialVersionUID=-2144776615610322307L;
 
@@ -71,13 +71,13 @@ abstract class AbstractLoopInstruction implements Instruction
 	protected boolean evaluatePreCondition(Context context)
 		throws EvaluationException
 	{
-		return this.preCondition == null || ConditionalsUtils.isTrue(this.preCondition.evaluate(context, SumaEvaluatorFactory.getInstance()));
+		return this.preCondition == null || ConditionalsUtils.isTrue(this.preCondition.evaluate(context, context.getEvaluatorFactory()));
 	}
 
 	protected boolean evaluatePostCondition(Context context)
 		throws EvaluationException
 	{
-		return this.postCondition == null || ConditionalsUtils.isTrue(this.postCondition.evaluate(context, SumaEvaluatorFactory.getInstance()));
+		return this.postCondition == null || ConditionalsUtils.isTrue(this.postCondition.evaluate(context, context.getEvaluatorFactory()));
 	}
 
 	protected Jump initializations(Context context)

@@ -38,7 +38,7 @@ public class CollectionLoopInstruction extends AbstractLoopInstruction
 	{
 		try
 		{
-			Object value=this.expressionCollection.evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=this.expressionCollection.evaluate(context, context.getEvaluatorFactory());
 			if (value instanceof Collection)
 			{
 				@SuppressWarnings("unchecked")

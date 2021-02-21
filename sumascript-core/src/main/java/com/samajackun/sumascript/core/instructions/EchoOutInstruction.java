@@ -27,7 +27,7 @@ public class EchoOutInstruction implements Instruction
 	{
 		try
 		{
-			context.getRuntime().getOut().println(this.expression.evaluate(context, SumaEvaluatorFactory.getInstance()));
+			context.getRuntime().getOut().println(this.expression.evaluate(context, context.getEvaluatorFactory()));
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)

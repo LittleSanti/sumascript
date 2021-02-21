@@ -8,7 +8,9 @@ import java.util.Set;
 
 import com.samajackun.rodas.core.eval.functions.Function;
 import com.samajackun.sumascript.core.Namespace;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.instructions.BlockInstruction;
+import com.samajackun.sumascript.core.instructions.SumaInstructionSerializer;
 
 public class Program implements Serializable
 {
@@ -39,5 +41,11 @@ public class Program implements Serializable
 	public Map<String, Function> getFunctions()
 	{
 		return this.functions;
+	}
+
+	public String toCode(SumaInstructionSerializer serializer)
+		throws SumaInstructionSerializerException
+	{
+		return this.block.toCode(serializer);
 	}
 }

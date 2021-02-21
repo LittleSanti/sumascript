@@ -28,8 +28,8 @@ public class DecrementInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.leftSide.evaluate(context, SumaEvaluatorFactory.getInstance());
-			this.leftSide.set(context, SumaEvaluatorFactory.getInstance(), ArithmeticUtils.computeAdd(value, -1));
+			Object value=this.leftSide.evaluate(context, context.getEvaluatorFactory());
+			this.leftSide.set(context, context.getEvaluatorFactory(), ArithmeticUtils.computeAdd(value, -1));
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)

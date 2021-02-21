@@ -16,7 +16,7 @@ public final class SumaParser
 {
 	private static final SumaParser INSTANCE=new SumaParser();
 
-	private final StatefulParser statefulParser=new StatefulParser();
+	private final ProgramParser statefulParser=ProgramParser.getInstance();
 
 	public static SumaParser getInstance()
 	{
@@ -47,7 +47,7 @@ public final class SumaParser
 		throws IOException,
 		ParserException
 	{
-		return this.statefulParser.parseExpression(tokenizer, parserContext);
+		return CommonParser.getInstance().parseExpression(tokenizer, parserContext);
 	}
 
 	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
@@ -56,7 +56,7 @@ public final class SumaParser
 	{
 		try
 		{
-			return this.statefulParser.parseUnnamedFunctionDeclaration(tokenizer, parserContext);
+			return FunctionParser.getInstance().parseUnnamedFunctionDeclaration(tokenizer, parserContext);
 		}
 		catch (EvaluationException e)
 		{

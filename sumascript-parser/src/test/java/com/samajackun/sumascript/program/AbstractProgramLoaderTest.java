@@ -13,9 +13,11 @@ import org.junit.Test;
 
 import com.samajackun.rodas.core.model.NumericConstantExpression;
 import com.samajackun.sumascript.core.Instruction;
+import com.samajackun.sumascript.core.SumaInstructionSerializerException;
 import com.samajackun.sumascript.core.instructions.BlockInstruction;
 import com.samajackun.sumascript.core.instructions.EchoOutInstruction;
 import com.samajackun.sumascript.parser.Program;
+import com.samajackun.sumascript.serializer.SumaCodeInstructionSerializer;
 
 public abstract class AbstractProgramLoaderTest
 {
@@ -33,17 +35,21 @@ public abstract class AbstractProgramLoaderTest
 		List<Instruction> instructions=new ArrayList<>();
 		instructions.add(new EchoOutInstruction(new NumericConstantExpression("120", 120L)));
 		BlockInstruction block=new BlockInstruction(instructions);
-		Program program=new Program(block);
+		Program program1=new Program(block);
 		ByteArrayOutputStream output=new ByteArrayOutputStream(8192);
 		try
 		{
-			this.saver.save(program, output);
+			String codeProgram1=program1.toCode(SumaCodeInstructionSerializer.getInstance());
+			this.saver.save(program1, output);
 			byte[] data=output.toByteArray();
 			ByteArrayInputStream input=new ByteArrayInputStream(data);
 			Program program2=ProgramManager.getInstance().load(input, "my.ssc");
-			assertEquals(program, program2);
+			String codeProgram2=program2.toCode(SumaCodeInstructionSerializer.getInstance());
+			System.out.println(codeProgram1);
+
+			assertEquals(codeProgram1, codeProgram2);
 		}
-		catch (IOException | ProgramLoadException e)
+		catch (IOException | ProgramLoadException | SumaInstructionSerializerException e)
 		{
 			e.printStackTrace();
 			fail(e.toString());

@@ -29,7 +29,7 @@ public class ChangeCurrentDirectoryInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.newDirectory.evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=this.newDirectory.evaluate(context, context.getEvaluatorFactory());
 			String valueStr=value == null
 				? "null"
 				: value.toString();

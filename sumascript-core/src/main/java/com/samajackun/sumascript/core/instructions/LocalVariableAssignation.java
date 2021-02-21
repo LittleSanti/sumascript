@@ -27,7 +27,7 @@ public class LocalVariableAssignation extends AbstractVariableAssignation
 		{
 			Object value=getExpression() == null
 				? Undefined.getInstance()
-				: getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
+				: getExpression().evaluate(context, context.getEvaluatorFactory());
 			context.getVariablesManager().setLocalVariable(getName(), value);
 			return NoJump.getInstance();
 		}

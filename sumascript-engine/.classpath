@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin/main" path="src/main/java"/>
+	<classpathentry kind="src" output="bin/test" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rodas-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rodas-engine"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rodas-parser"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sumascript-core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sumascript-parser"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin/default"/>
+</classpath>

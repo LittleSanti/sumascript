@@ -32,8 +32,8 @@ public class AssignationInstruction implements Instruction
 	{
 		try
 		{
-			Object value=computeValue(context, SumaEvaluatorFactory.getInstance(), this.leftSide, this.rightSide);
-			this.leftSide.set(context, SumaEvaluatorFactory.getInstance(), value);
+			Object value=computeValue(context, context.getEvaluatorFactory(), this.leftSide, this.rightSide);
+			this.leftSide.set(context, context.getEvaluatorFactory(), value);
 			return NoJump.getInstance();
 		}
 		catch (EvaluationException e)
@@ -45,7 +45,7 @@ public class AssignationInstruction implements Instruction
 	protected Object computeValue(Context context, EvaluatorFactory evaluatorFactory, Assignable leftSide2, Expression rightSide2)
 		throws EvaluationException
 	{
-		return rightSide2.evaluate(context, SumaEvaluatorFactory.getInstance());
+		return rightSide2.evaluate(context, context.getEvaluatorFactory());
 	}
 
 	@Override

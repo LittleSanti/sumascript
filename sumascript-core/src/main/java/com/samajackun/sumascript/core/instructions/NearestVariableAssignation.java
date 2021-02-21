@@ -18,13 +18,18 @@ public class NearestVariableAssignation extends AbstractVariableAssignation
 		super(name, expression);
 	}
 
+	public NearestVariableAssignation(Name name)
+	{
+		super(name, null);
+	}
+
 	@Override
 	public Jump execute(Context context)
 		throws ExecutionException
 	{
 		try
 		{
-			Object value=getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=getExpression().evaluate(context, context.getEvaluatorFactory());
 			context.getVariablesManager().setNearestVariable(getName(), value);
 			return NoJump.getInstance();
 		}

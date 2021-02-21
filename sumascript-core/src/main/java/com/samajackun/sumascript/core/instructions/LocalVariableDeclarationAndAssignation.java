@@ -11,4 +11,9 @@ public class LocalVariableDeclarationAndAssignation extends LocalVariableAssigna
 	{
 		super(name, expression);
 	}
+
+	public LocalVariableDeclarationAndAssignation(Name name)
+	{
+		super(name, null);
+	}
 }

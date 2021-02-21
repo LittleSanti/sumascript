@@ -23,7 +23,7 @@ public class AddAssignationInstruction extends AssignationInstruction
 	{
 		Object value1=leftSide.evaluate(context, evaluatorFactory);
 		Object value2=rightSide.evaluate(context, evaluatorFactory);
-		return ArithmeticUtils.computeAdd(value1, value2);
+		return ArithmeticUtils.computeAddNumberOrString(value1, value2);
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class IfInstruction implements Instruction
 	{
 		try
 		{
-			Object value=this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=this.expression.evaluate(context, context.getEvaluatorFactory());
 			Jump jump;
 			if (ConditionalsUtils.isTrue(value))
 			{

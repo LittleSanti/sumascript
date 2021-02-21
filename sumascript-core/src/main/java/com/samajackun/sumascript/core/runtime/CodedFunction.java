@@ -10,7 +10,6 @@ import com.samajackun.rodas.core.eval.functions.FunctionEvaluationException;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.Jump;
-import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
 
 public class CodedFunction implements Function
 {
@@ -55,7 +54,7 @@ public class CodedFunction implements Function
 			Object returnValue;
 			if (jump.isReturn())
 			{
-				returnValue=jump.getExpression().evaluate(context, SumaEvaluatorFactory.getInstance());
+				returnValue=jump.getExpression().evaluate(context, context.getEvaluatorFactory());
 			}
 			else
 			{
@@ -73,7 +72,7 @@ public class CodedFunction implements Function
 		}
 		finally
 		{
-			// No me molesto en llamar a removeLocalVariable, pues a continuación viene un pop.
+			// No me molesto en llamar a removeLocalVariable, pues a continuaciï¿½n viene un pop.
 			context.getVariablesManager().popLocalContext();
 		}
 	}

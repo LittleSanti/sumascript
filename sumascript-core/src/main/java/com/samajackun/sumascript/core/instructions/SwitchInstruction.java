@@ -37,7 +37,7 @@ public class SwitchInstruction implements Instruction
 		try
 		{
 			Jump jump=NoJump.getInstance();
-			Object value=this.expression.evaluate(context, SumaEvaluatorFactory.getInstance());
+			Object value=this.expression.evaluate(context, context.getEvaluatorFactory());
 			boolean found=false;
 			for (Pair pair : this.pairs)
 			{

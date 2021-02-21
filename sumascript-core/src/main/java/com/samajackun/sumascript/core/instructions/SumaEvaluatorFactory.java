@@ -8,8 +8,10 @@ public final class SumaEvaluatorFactory extends DefaultEvaluatorFactory
 {
 	private static final SumaEvaluatorFactory INSTANCE=new SumaEvaluatorFactory();
 
+	// OJO: No se debe inicializar aquí por un problema de tiempos: En este momento aún no existe this. Por eso he recurrido a inicialización perezosa en el getter.
 	private FunctionEvaluator myFunctionEvaluator;
 
+	// OJO: No se debe inicializar aquí por un problema de tiempos: En este momento aún no existe this. Por eso he recurrido a inicialización perezosa en el getter.
 	private QueryEvaluator myQueryEvaluator;
 
 	public static SumaEvaluatorFactory getInstance()
@@ -30,7 +32,7 @@ public final class SumaEvaluatorFactory extends DefaultEvaluatorFactory
 			{
 				if (this.myFunctionEvaluator == null)
 				{
-					this.myFunctionEvaluator=new SumaFunctionEvaluator(SumaEvaluatorFactory.getInstance());
+					this.myFunctionEvaluator=new SumaFunctionEvaluator(this);
 				}
 			}
 		}
@@ -46,7 +48,7 @@ public final class SumaEvaluatorFactory extends DefaultEvaluatorFactory
 			{
 				if (this.myQueryEvaluator == null)
 				{
-					this.myQueryEvaluator=new SumaQueryEvaluator(SumaEvaluatorFactory.getInstance());
+					this.myQueryEvaluator=new SumaQueryEvaluator(this);
 				}
 			}
 		}
