@@ -39,7 +39,7 @@ public final class TypeUtils
 		{
 			datatype=Datatype.DATETIME;
 		}
-		// TODO A lo mehor faltaría el tipo DATE.
+		// TODO A lo mehor faltarÃ­a el tipo DATE.
 		else
 		{
 			datatype=Datatype.OBJECT;

@@ -1,5 +1,6 @@
 package com.samajackun.sumascript.core.expressions;
 
+import java.util.List;
 import java.util.Map;
 
 import com.samajackun.rodas.core.eval.Context;
@@ -9,10 +10,10 @@ import com.samajackun.rodas.core.model.Datatype;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.MetadataException;
 
-// Representa un derreferenciación: container.property
+// Representa un derreferenciaciï¿½n: container.property
 public class ScopedExpression implements Expression, Assignable
 {
-	private static final long serialVersionUID = -1709353728137908653L;
+	private static final long serialVersionUID=-1709353728137908653L;
 
 	private final Expression base;
 
@@ -40,7 +41,25 @@ public class ScopedExpression implements Expression, Assignable
 		Object value;
 		if (baseValue instanceof Map)
 		{
-			value=((Map<Object, Object>)baseValue).get(this.property);
+			if ("length".equals(this.property))
+			{
+				value=((Map<Object, Object>)baseValue).size();
+			}
+			else
+			{
+				value=((Map<Object, Object>)baseValue).get(this.property);
+			}
+		}
+		else if (baseValue instanceof List)
+		{
+			if ("length".equals(this.property))
+			{
+				value=((List<Object>)baseValue).size();
+			}
+			else
+			{
+				throw new EvaluationException("Undefined array property '" + this.property + "'");
+			}
 		}
 		else
 		{

@@ -7,7 +7,21 @@
 	</parent>
 	<artifactId>sumascript-core</artifactId>
 	<name>sumascript-core</name>
-	<dependencies>
+	<dependencies>	
+		<dependency>
+			<groupId>com.samajackun.rodas</groupId>
+			<artifactId>rodas-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.samajackun.rodas</groupId>
+			<artifactId>rodas-core</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.samajackun.rodas</groupId>
+			<artifactId>rodas-engine</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

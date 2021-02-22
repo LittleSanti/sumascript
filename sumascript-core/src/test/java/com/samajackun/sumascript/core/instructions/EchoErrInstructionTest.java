@@ -10,7 +10,6 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.expression.MyContext;
-import com.samajackun.sumascript.core.instructions.EchoErrInstruction;
 
 public class EchoErrInstructionTest
 {
@@ -22,7 +21,7 @@ public class EchoErrInstructionTest
 		EchoErrInstruction echoErr=new EchoErrInstruction(expression);
 		MyContext context=new MyContext();
 		StringWriter err=new StringWriter();
-		context.getScriptRuntime().setErr(new PrintWriter(err));
+		context.getRuntime().setErr(new PrintWriter(err));
 		try
 		{
 			String NL=System.getProperty("line.separator");

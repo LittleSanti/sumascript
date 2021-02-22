@@ -5,7 +5,6 @@ import java.io.File;
 import com.samajackun.rodas.core.eval.Context;
 import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.core.eval.EvaluatorFactory;
-import com.samajackun.rodas.core.eval.Runtime;
 import com.samajackun.rodas.core.eval.VariablesManager;
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.Provider;
@@ -18,39 +17,16 @@ public class MyContext implements Context
 {
 	private ScriptRuntime runtime=new ScriptRuntime(new File(System.getProperty("user.dir")));
 
-	private final VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
+	private VariablesManager variablesManager=new FlexibleVariablesManager(new FlexibleVariablesContext());
 
-	private final EvaluatorFactory evaluatorFactory=SumaEvaluatorFactory.getInstance();
+	private EvaluatorFactory evaluatorFactory=SumaEvaluatorFactory.getInstance();
+
+	private Provider provider;
 
 	@Override
-	public Runtime getRuntime()
+	public ScriptRuntime getRuntime()
 	{
 		return this.runtime;
-	}
-
-	public ScriptRuntime getScriptRuntime()
-	{
-		return this.runtime;
-	}
-
-	@Override
-	public VariablesManager getVariablesManager()
-	{
-		return this.variablesManager;
-	}
-
-	@Override
-	public Provider getProvider()
-	{
-		return null;
-	}
-
-	@Override
-	public Object evaluate(Expression expression, EvaluatorFactory evaluatorFactory)
-		throws EvaluationException
-	{
-		// Aqu� no pondremos cach�.
-		return expression.evaluate(this, evaluatorFactory);
 	}
 
 	public void setRuntime(ScriptRuntime runtime)
@@ -59,8 +35,43 @@ public class MyContext implements Context
 	}
 
 	@Override
+	public VariablesManager getVariablesManager()
+	{
+		return this.variablesManager;
+	}
+
+	public void setVariablesManager(VariablesManager variablesManager)
+	{
+		this.variablesManager=variablesManager;
+	}
+
+	@Override
 	public EvaluatorFactory getEvaluatorFactory()
 	{
 		return this.evaluatorFactory;
 	}
+
+	public void setEvaluatorFactory(EvaluatorFactory evaluatorFactory)
+	{
+		this.evaluatorFactory=evaluatorFactory;
+	}
+
+	@Override
+	public Provider getProvider()
+	{
+		return this.provider;
+	}
+
+	public void setProvider(Provider provider)
+	{
+		this.provider=provider;
+	}
+
+	@Override
+	public Object evaluate(Expression expression, EvaluatorFactory evaluatorFactory)
+		throws EvaluationException
+	{
+		return expression.evaluate(this, evaluatorFactory);
+	}
+
 }

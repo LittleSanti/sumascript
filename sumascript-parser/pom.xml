@@ -1,22 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.samajackun.sumascript</groupId>
-	<artifactId>sumascript-engine</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>sumascript-engine</name>
 	<parent>
 		<groupId>com.samajackun.sumascript</groupId>
 		<artifactId>sumascript</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<packaging>jar</packaging>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<artifactId>sumascript-parser</artifactId>
+	<name>sumascript-parser</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.samajackun.sumascript</groupId>
-			<artifactId>sumascript-parser</artifactId>
+			<artifactId>sumascript-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.samajackun.sumascript</groupId>
@@ -26,17 +20,19 @@
 		</dependency>
 		<dependency>
 			<groupId>com.samajackun.rodas</groupId>
-			<artifactId>rodas-engine</artifactId>
+			<artifactId>rodas-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.samajackun.rodas</groupId>
+			<artifactId>rodas-parser</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

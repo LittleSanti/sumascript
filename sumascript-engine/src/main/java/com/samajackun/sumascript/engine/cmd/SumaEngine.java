@@ -6,8 +6,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 import com.samajackun.rodas.core.eval.Context;
-import com.samajackun.sumascript.core.expression.MyContext;
+import com.samajackun.rodas.core.eval.MyOpenContext;
+import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
+import com.samajackun.sumascript.core.runtime.FlexibleVariablesContext;
+import com.samajackun.sumascript.core.runtime.FlexibleVariablesManager;
 import com.samajackun.sumascript.core.runtime.ScriptRuntime;
+import com.samajackun.sumascript.engine.providers.FileSystemProvider;
 import com.samajackun.sumascript.parser.Program;
 import com.samajackun.sumascript.program.ProgramManager;
 
@@ -15,11 +19,15 @@ public class SumaEngine
 {
 	private static Context createContext()
 	{
-		MyContext context=new MyContext();
+		MyOpenContext context=new MyOpenContext();
+		context.setProvider(new FileSystemProvider());
 		ScriptRuntime runtime=new ScriptRuntime(new File("."));
 		runtime.setOut(new PrintWriter(System.out, true));
 		runtime.setErr(new PrintWriter(System.err, true));
 		context.setRuntime(runtime);
+		context.setEvaluatorFactory(SumaEvaluatorFactory.getInstance());
+		context.setVariablesManager(new FlexibleVariablesManager(new FlexibleVariablesContext()));
+		// context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
 		return context;
 	}
 

@@ -7,6 +7,7 @@
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<rodas.version>0.0.1-SNAPSHOT</rodas.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -26,6 +27,33 @@
 				<groupId>com.samajackun.sumascript</groupId>
 				<artifactId>sumascript-parser</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.samajackun.sumascript</groupId>
+				<artifactId>sumascript-engine</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.samajackun.rodas</groupId>
+				<artifactId>rodas-core</artifactId>
+				<version>${rodas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.samajackun.rodas</groupId>
+				<artifactId>rodas-core</artifactId>
+				<version>${rodas.version}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.samajackun.rodas</groupId>
+				<artifactId>rodas-parser</artifactId>
+				<version>${rodas.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.samajackun.rodas</groupId>
+				<artifactId>rodas-engine</artifactId>
+				<version>${rodas.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
@@ -81,4 +109,4 @@
 		<module>sumascript-parser</module>
 		<module>sumascript-engine</module>
 	</modules>
-</project>1
+</project>

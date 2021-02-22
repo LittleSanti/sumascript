@@ -29,7 +29,7 @@ public class FunctionDeclarationInstruction implements Instruction
 	public Jump execute(Context context)
 		throws ExecutionException
 	{
-		// En el nivel de contexto m·s alto, localContext==globalContext.
+		// En el nivel de contexto m√°s alto, localContext==globalContext.
 		context.getVariablesManager().peekLocalContext().set(this.codedFunction.getName(), this.codedFunction);
 		return NoJump.getInstance();
 	}

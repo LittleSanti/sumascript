@@ -28,7 +28,7 @@ public class CollectionLoopInstructionTest
 	{
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
-		context.getScriptRuntime().setOut(new PrintWriter(out, true));
+		context.getRuntime().setOut(new PrintWriter(out, true));
 		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		ListConstantExpression varExpression=new ListConstantExpression();
@@ -53,7 +53,7 @@ public class CollectionLoopInstructionTest
 	{
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
-		context.getScriptRuntime().setOut(new PrintWriter(out, true));
+		context.getRuntime().setOut(new PrintWriter(out, true));
 		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		ListConstantExpression varExpression=new ListConstantExpression();
@@ -81,7 +81,7 @@ public class CollectionLoopInstructionTest
 	{
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
-		context.getScriptRuntime().setOut(new PrintWriter(out, true));
+		context.getRuntime().setOut(new PrintWriter(out, true));
 		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		MapExpression varExpression=new MapExpression();
@@ -109,7 +109,7 @@ public class CollectionLoopInstructionTest
 	{
 		MyContext context=new MyContext();
 		StringWriter out=new StringWriter();
-		context.getScriptRuntime().setOut(new PrintWriter(out, true));
+		context.getRuntime().setOut(new PrintWriter(out, true));
 		Name varName=Name.instanceOf("a");
 		Instruction stepInstruction=new EchoOutInstruction(new NearestVariableExpression(varName));
 		TextConstantExpression varExpression=new TextConstantExpression("enero");
