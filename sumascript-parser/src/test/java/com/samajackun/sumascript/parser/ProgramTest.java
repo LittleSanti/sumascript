@@ -19,7 +19,7 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.samajackun.rodas.core.eval.Context;
-import com.samajackun.rodas.core.eval.MyOpenContext;
+import com.samajackun.rodas.core.eval.DefaultContext;
 import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
 import com.samajackun.rodas.core.eval.functions.Function;
@@ -1069,7 +1069,7 @@ public class ProgramTest
 	{
 		String code="var rows=SELECT (1+120) AS num;for(var r:rows) {echoout r.num}";
 		Program program=test(code);
-		MyOpenContext context=new MyOpenContext();
+		DefaultContext context=new DefaultContext();
 		ScriptRuntime runtime=new ScriptRuntime(new File("."));
 		StringWriter myOut=new StringWriter(4096);
 		runtime.setOut(new PrintWriter(myOut, true));
@@ -1128,7 +1128,7 @@ public class ProgramTest
 	{
 		String code="var days=[\"monday\"]; echoout days[0]";
 		Program program=test(code);
-		MyOpenContext context=new MyOpenContext();
+		DefaultContext context=new DefaultContext();
 		ScriptRuntime runtime=new ScriptRuntime(new File("."));
 		StringWriter myOut=new StringWriter(4096);
 		runtime.setOut(new PrintWriter(myOut, true));
@@ -1155,7 +1155,7 @@ public class ProgramTest
 	{
 		String code="var days=[\"monday\",\"tuesday\",\"wednesday\"];for(var day:days) {echoout day}";
 		Program program=test(code);
-		MyOpenContext context=new MyOpenContext();
+		DefaultContext context=new DefaultContext();
 		ScriptRuntime runtime=new ScriptRuntime(new File("."));
 		StringWriter myOut=new StringWriter(4096);
 		runtime.setOut(new PrintWriter(myOut, true));
@@ -1184,7 +1184,7 @@ public class ProgramTest
 	{
 		String code="var dates=[{day:\"monday\",num:21},{day:\"tuesday\",num:22},{day:\"wednesday\",num:23}];for(var date:dates) {echoout date.day}";
 		Program program=test(code);
-		MyOpenContext context=new MyOpenContext();
+		DefaultContext context=new DefaultContext();
 		ScriptRuntime runtime=new ScriptRuntime(new File("."));
 		StringWriter myOut=new StringWriter(4096);
 		runtime.setOut(new PrintWriter(myOut, true));

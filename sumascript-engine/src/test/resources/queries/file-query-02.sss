@@ -1,6 +1,6 @@
-var path='s:\proyectos\sumascript\sumascript-engine\src\test\resources'
-var rows=SELECT name, size FROM ${path}
-for (var row:rows)
+var rows=SELECT name, size FROM "s:\proyectos\sumascript\sumascript-engine\src\test\resources" WHERE size>100;
+echoout rows.length
+for(var r:rows)
 {
-	echoout row.name
+	echoout r.name+':'+r.size
 }
