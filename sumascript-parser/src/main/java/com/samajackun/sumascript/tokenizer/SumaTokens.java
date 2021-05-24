@@ -86,6 +86,8 @@ public class SumaTokens
 
 	public static final Token OPERATOR_DISTINCT2=new Token(SumaTokenTypes.OPERATOR_DISTINCT, "<>");
 
+	public static final Token OPERATOR_NEW=new Token(SumaTokenTypes.OPERATOR_NEW, "new");
+
 	public static final Token OPERATOR_PLUS=new Token(SumaTokenTypes.OPERATOR_PLUS, "+");
 
 	public static final Token OPERATOR_PLUS_EQUALS=new Token(SumaTokenTypes.OPERATOR_PLUS_EQUALS, "+=");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 import com.samajackun.rodas.core.model.Expression;
+import com.samajackun.rodas.core.model.FunctionCallExpression;
 import com.samajackun.rodas.core.model.IdentifierExpression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
 import com.samajackun.rodas.parsing.parser.ParserException;
@@ -16,6 +17,7 @@ import com.samajackun.rodas.sql.tokenizer.Token;
 import com.samajackun.sumascript.core.expressions.IndexedExpression;
 import com.samajackun.sumascript.core.expressions.ScopedExpression;
 import com.samajackun.sumascript.expressions.ArrayExpression;
+import com.samajackun.sumascript.expressions.InstantiationCallExpression;
 import com.samajackun.sumascript.expressions.JsonExpression;
 import com.samajackun.sumascript.expressions.UndefinedConstantExpression;
 import com.samajackun.sumascript.tokenizer.SumaMatchingTokenizer;
@@ -48,7 +50,7 @@ public final class SumaArithmeticExpressionParser extends GenericArithmeticExpre
 		{
 			switch (token.getType())
 			{
-				// A partir de aqu� son los casos "inyectados" en parseTerminal:
+				// A partir de aqu� son los casos "inyectados" en parseTerminal:
 				case SumaTokenTypes.KEY_START:
 					tokenizer.pushBack(token);
 					expression=parseJson(tokenizer, parserContext);
@@ -64,7 +66,10 @@ public final class SumaArithmeticExpressionParser extends GenericArithmeticExpre
 					expression=UndefinedConstantExpression.getInstance();
 					break;
 				case SumaTokenTypes.KEYWORD_FUNCTION:
-					expression=SumaParser.getInstance().parseUnnamedFunctionDeclaration((SumaMatchingTokenizer)tokenizer, parserContext);
+					expression=SumaParser.getInstance().parseUnnamedFunctionDeclaration((SumaMatchingTokenizer)tokenizer, (SumaParserContext)parserContext);
+					break;
+				case SumaTokenTypes.OPERATOR_NEW:
+					expression=parseInstantiationCallExpression(token, tokenizer, parserContext);
 					break;
 				// case SumaTokenTypes.IDENTIFIER:
 				// Token token2=tokenizer.nextOptionalToken();
@@ -226,5 +231,24 @@ public final class SumaArithmeticExpressionParser extends GenericArithmeticExpre
 			}
 		}
 		return expression;
+	}
+
+	protected Expression parseInstantiationCallExpression(Token token, AbstractMatchingTokenizer tokenizer, ParserContext parserContext)
+		throws IOException,
+		ParserException
+	{
+		// Se trata de una instanciación: Vamos a tratarlo como si fuera la invocación a una función (a fina de cuentas, lo es)
+		// reusando la superimplementación deste método.
+		Token token2=tokenizer.nextToken();
+		Expression expression2=super.parseIdentifier(token2, tokenizer, parserContext);
+		if (expression2 instanceof FunctionCallExpression)
+		{
+			FunctionCallExpression functionCallExpression=(FunctionCallExpression)expression2;
+			return new InstantiationCallExpression(functionCallExpression.getFunctionObject(), functionCallExpression.getArguments());
+		}
+		else
+		{
+			throw new ParserException("An invocation is expected after new");
+		}
 	}
 }

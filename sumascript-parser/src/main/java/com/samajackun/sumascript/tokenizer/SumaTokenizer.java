@@ -75,6 +75,7 @@ public class SumaTokenizer extends SqlTokenizer
 			SumaTokens.OPERATOR_AND,
 			SumaTokens.OPERATOR_OR,
 			SumaTokens.OPERATOR_EQUALS,
+			SumaTokens.OPERATOR_NEW,
 			SumaTokens.OPERATOR_PLUS,
 			SumaTokens.OPERATOR_PLUS_PLUS,
 			SumaTokens.OPERATOR_MINUS,
@@ -534,7 +535,7 @@ public class SumaTokenizer extends SqlTokenizer
 				case READING_EXPONENT_DIGITS:
 					if (c == '-' || c == '+')
 					{
-						// Seguir en este estado: Podría haber varios signos seguidos y sería una notación válida.
+						// Seguir en este estado: Podrï¿½a haber varios signos seguidos y serï¿½a una notaciï¿½n vï¿½lida.
 					}
 					else if (Character.isDigit(c))
 					{
@@ -603,7 +604,7 @@ public class SumaTokenizer extends SqlTokenizer
 					}
 					break;
 				default:
-					// No hay más casos.
+					// No hay mï¿½s casos.
 					break;
 			}
 		}

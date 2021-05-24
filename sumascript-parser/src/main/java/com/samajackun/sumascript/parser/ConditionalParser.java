@@ -34,7 +34,7 @@ public class ConditionalParser
 	{
 	}
 
-	public Instruction parseIf(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Instruction parseIf(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws ParserException,
 		IOException,
 		SumaParseException,
@@ -66,7 +66,7 @@ public class ConditionalParser
 		return ifInstruction;
 	}
 
-	public Instruction parseSwitch(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Instruction parseSwitch(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws ParserException,
 		IOException,
 		SumaParseException,
@@ -120,7 +120,7 @@ public class ConditionalParser
 			Object value=parseConstant(tokenizer, parserContext);
 			if (!set.add(value))
 			{
-				// TODO Aquí hay que lanzar un warning de que hay un valor repe.
+				// TODO Aquï¿½ hay que lanzar un warning de que hay un valor repe.
 			}
 			Token token=tokenizer.nextToken();
 			switch (token.getType())

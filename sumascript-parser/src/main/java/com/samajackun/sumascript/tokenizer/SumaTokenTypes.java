@@ -98,6 +98,8 @@ public final class SumaTokenTypes
 
 	public static final String OPERATOR_AND_BITWISE="suma.operator_and_bitwise";
 
+	public static final String OPERATOR_NEW="suma.operator_new";
+
 	public static final String OPERATOR_OR=SqlTokenTypes.OPERATOR_OR;
 
 	public static final String OPERATOR_OR_BITWISE="suma.operator_or_bitwise";
@@ -128,7 +130,7 @@ public final class SumaTokenTypes
 
 	public static final String DECIMAL_NUMBER_LITERAL=SqlTokenTypes.DECIMAL_NUMBER_LITERAL;
 
-	public static final String VARIABLE_REFERENCE=SqlTokenTypes.NAMED_PARAMETER;
+	public static final String VARIABLE_REFERENCE="suma.variable_reference";
 
 	public static final String TRUE=SqlTokenTypes.TRUE;
 

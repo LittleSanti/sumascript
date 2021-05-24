@@ -37,7 +37,7 @@ public final class FunctionParser
 	{
 	}
 
-	public FunctionDeclarationInstruction parseFunctionDefinition(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public FunctionDeclarationInstruction parseFunctionDefinition(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws IOException,
 		ParserException,
 		EvaluationException
@@ -93,7 +93,7 @@ public final class FunctionParser
 		return params;
 	}
 
-	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws IOException,
 		ParserException,
 		EvaluationException
@@ -106,7 +106,7 @@ public final class FunctionParser
 		return new UnnamedFunctionDeclarationExpression(codedFunction);
 	}
 
-	public VariableAssignationsInstruction parseLocalVars(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public VariableAssignationsInstruction parseLocalVars(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws ParserException,
 		IOException,
 		SumaParseException

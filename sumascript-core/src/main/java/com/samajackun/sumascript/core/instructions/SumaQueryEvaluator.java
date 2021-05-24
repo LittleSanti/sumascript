@@ -22,14 +22,11 @@ import com.samajackun.rodas.sql.engine.SqlEngine;
 
 public class SumaQueryEvaluator implements QueryEvaluator
 {
-	private final EvaluatorFactory evaluatorFactory;
-
 	private final Engine engine=new SqlEngine();
 
 	public SumaQueryEvaluator(EvaluatorFactory evaluatorFactory)
 	{
 		super();
-		this.evaluatorFactory=evaluatorFactory;
 	}
 
 	@Override

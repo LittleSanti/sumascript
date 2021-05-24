@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.samajackun.rodas.core.eval.EvaluationException;
 import com.samajackun.rodas.parsing.parser.ParserException;
-import com.samajackun.rodas.sql.parser.ParserContext;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.instructions.BlockInstruction;
+import com.samajackun.sumascript.core.runtime.NamedCodedFunction;
 import com.samajackun.sumascript.tokenizer.SumaMatchingTokenizer;
 
 public final class ProgramParser
@@ -24,15 +24,16 @@ public final class ProgramParser
 	{
 	}
 
-	public Program parse(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Program parse(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws SumaParseException,
 		IOException,
 		ParserException,
 		EvaluationException
 	{
 		List<Instruction> instructions=new ArrayList<>();
+		List<NamedCodedFunction> parsedFunctions=new ArrayList<>();
 		CommonParser.getInstance().parseInstructions(tokenizer, parserContext, instructions);
-		Program program=new Program(new BlockInstruction(instructions));
+		Program program=new Program(new BlockInstruction(instructions), parsedFunctions);
 		return program;
 	}
 
@@ -76,7 +77,7 @@ public final class ProgramParser
 	// Token token=tokenizer.nextToken();
 	// if (token == null)
 	// {
-	// throw new SumaParseException("¿Qué coño pinta aquí un identificador huérfano?");
+	// throw new SumaParseException("ï¿½Quï¿½ coï¿½o pinta aquï¿½ un identificador huï¿½rfano?");
 	// }
 	// else
 	// {

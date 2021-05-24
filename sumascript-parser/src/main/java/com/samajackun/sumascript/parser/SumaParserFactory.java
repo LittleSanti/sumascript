@@ -10,6 +10,7 @@ import com.samajackun.rodas.sql.parser.GenericRelationalExpressionParser;
 import com.samajackun.rodas.sql.parser.GenericSelectSentenceParser;
 import com.samajackun.rodas.sql.parser.ParserFactory;
 import com.samajackun.rodas.sql.parser.PartialParser;
+import com.samajackun.rodas.sql.parser.SourceParser;
 
 public final class SumaParserFactory implements ParserFactory
 {
@@ -28,6 +29,8 @@ public final class SumaParserFactory implements ParserFactory
 	private GenericRelationalExpressionParser relationalExpressionParser;
 
 	private GenericSelectSentenceParser selectSentenceParser;
+
+	private SourceParser sourceParser;
 
 	private static final SumaParserFactory INSTANCE=new SumaParserFactory();
 
@@ -166,5 +169,22 @@ public final class SumaParserFactory implements ParserFactory
 			}
 		}
 		return this.selectSentenceParser;
+	}
+
+	@Override
+	public SourceParser getSourceParser()
+	{
+		if (this.sourceParser == null)
+		{
+			synchronized (this)
+			{
+				if (this.sourceParser == null)
+				{
+					this.sourceParser=new SumaSourceParser(this);
+				}
+			}
+		}
+		return this.sourceParser;
+
 	}
 }

@@ -26,7 +26,7 @@ import com.samajackun.sumascript.parser.Program;
 import com.samajackun.sumascript.parser.SumaParseException;
 import com.samajackun.sumascript.parser.SumaParser;
 
-public class QueryExecutionTest
+public class QueryParserTest
 {
 	private Program test(String code)
 		throws IOException
@@ -87,10 +87,38 @@ public class QueryExecutionTest
 	}
 
 	@Test
+	public void parseSelectWithFromReference()
+		throws IOException
+	{
+		String code="var data=[{name:'madrid',code:28},{name:'toledo',code:45}];var rows=SELECT name, code FROM ${data};for(var r:rows) {x=r.name}";
+		Program program=test(code);
+		MyContext context=createContext();
+		try
+		{
+			program.getBlock().execute(context);
+			Object value=context.getVariablesManager().getLocalVariable(Name.instanceOf("rows"));
+			assertTrue(value instanceof Collection);
+			@SuppressWarnings("unchecked")
+			Collection<Map> collection=(Collection<Map>)value;
+			for (Map rowData : collection)
+			{
+				System.out.println(rowData);
+			}
+			assertEquals(2, collection.size());
+		}
+		catch (VariableNotFoundException | ExecutionException e)
+		{
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		context.getVariablesManager().popLocalContext();
+	}
+
+	@Test
 	public void parseSelectWithFromAndWhere()
 		throws IOException
 	{
-		String code="var rows=SELECT name, size FROM \"s:\\proyectos\\sumascript\\sumascript-engine\\src\\test\\resources\";for(var r:rows) {echoout r.name+':'+r.size}";
+		String code="var rows=SELECT name, size FROM \"s:\\proyectos\\sumascript\\sumascript-engine\\src\\test\\resources\" WHERE size>93;for(var r:rows) {echoout r.name+':'+r.size}";
 		Program program=test(code);
 		MyContext context=createContext();
 		try

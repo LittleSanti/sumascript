@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1226,5 +1227,46 @@ public class ProgramTest
 			e.printStackTrace();
 			fail(e.toString());
 		}
+	}
+
+	@Test
+	public void parseCallToFunction()
+		throws IOException
+	{
+		String code="var a=myfunction(2020, 1, 2)";
+		Program program=test(code);
+		MyContext context=createContext();
+		context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
+		try
+		{
+			program.getBlock().execute(context);
+		}
+		catch (ExecutionException e)
+		{
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		context.getVariablesManager().popLocalContext();
+	}
+
+	@Test
+	public void parseCallToNew()
+		throws IOException
+	{
+		String code="var a=new Date(2020, 1, 2)";
+		Program program=test(code);
+		MyContext context=createContext();
+		context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
+		try
+		{
+			program.getBlock().execute(context);
+			assertEquals(LocalDate.of(2020, 1, 2), context.getVariablesManager().getLocalVariable(Name.instanceOf("a")));
+		}
+		catch (VariableNotFoundException | ExecutionException e)
+		{
+			e.printStackTrace();
+			fail(e.toString());
+		}
+		context.getVariablesManager().popLocalContext();
 	}
 }

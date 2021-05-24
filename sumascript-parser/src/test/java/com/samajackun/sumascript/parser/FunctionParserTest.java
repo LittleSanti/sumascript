@@ -12,7 +12,6 @@ import com.samajackun.rodas.parsing.parser.ParserException;
 import com.samajackun.rodas.parsing.source.CharSequenceSource;
 import com.samajackun.rodas.parsing.source.PushBackSource;
 import com.samajackun.rodas.parsing.tokenizer.TokenizerException;
-import com.samajackun.rodas.sql.parser.ParserContext;
 import com.samajackun.sumascript.core.instructions.FunctionDeclarationInstruction;
 import com.samajackun.sumascript.tokenizer.SumaMatchingTokenizer;
 import com.samajackun.sumascript.tokenizer.SumaTokenizer;
@@ -26,9 +25,9 @@ public class FunctionParserTest
 		return new SumaMatchingTokenizer(new SumaTokenizer(new PushBackSource(new CharSequenceSource(input))));
 	}
 
-	private ParserContext createParserContext()
+	private SumaParserContext createParserContext()
 	{
-		return new ParserContext();
+		return new SumaParserContext();
 	}
 
 	@Test

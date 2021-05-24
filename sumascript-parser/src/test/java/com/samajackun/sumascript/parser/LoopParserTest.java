@@ -20,7 +20,6 @@ import com.samajackun.rodas.parsing.parser.UnexpectedTokenException;
 import com.samajackun.rodas.parsing.source.CharSequenceSource;
 import com.samajackun.rodas.parsing.source.PushBackSource;
 import com.samajackun.rodas.parsing.tokenizer.TokenizerException;
-import com.samajackun.rodas.sql.parser.ParserContext;
 import com.samajackun.sumascript.core.instructions.AbstractLoopInstruction;
 import com.samajackun.sumascript.core.instructions.CollectionLoopInstruction;
 import com.samajackun.sumascript.core.instructions.IndexedLoopInstruction;
@@ -37,9 +36,9 @@ public class LoopParserTest
 		return new SumaMatchingTokenizer(new SumaTokenizer(new PushBackSource(new CharSequenceSource(input))));
 	}
 
-	private ParserContext createParserContext()
+	private SumaParserContext createParserContext()
 	{
-		return new ParserContext();
+		return new SumaParserContext();
 	}
 
 	@Test

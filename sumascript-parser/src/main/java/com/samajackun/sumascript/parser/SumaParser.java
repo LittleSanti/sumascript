@@ -34,7 +34,7 @@ public final class SumaParser
 		try
 		{
 			SumaMatchingTokenizer tokenizer=new SumaMatchingTokenizer(new SumaTokenizer(new PushBackSource(new ReaderSource(reader))));
-			ParserContext parserContext=new ParserContext(); // TODO
+			SumaParserContext parserContext=new SumaParserContext(); // TODO
 			return this.statefulParser.parse(tokenizer, parserContext);
 		}
 		catch (ParserException | EvaluationException e)
@@ -50,7 +50,7 @@ public final class SumaParser
 		return CommonParser.getInstance().parseExpression(tokenizer, parserContext);
 	}
 
-	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Expression parseUnnamedFunctionDeclaration(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws IOException,
 		ParserException
 	{

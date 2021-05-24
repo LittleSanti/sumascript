@@ -15,6 +15,7 @@ import com.samajackun.sumascript.core.instructions.BlockInstruction;
 import com.samajackun.sumascript.core.instructions.EchoErrInstruction;
 import com.samajackun.sumascript.core.instructions.EchoOutInstruction;
 import com.samajackun.sumascript.core.instructions.ExpressionInstruction;
+import com.samajackun.sumascript.core.instructions.FunctionDeclarationInstruction;
 import com.samajackun.sumascript.tokenizer.SumaMatchingTokenizer;
 import com.samajackun.sumascript.tokenizer.SumaTokenTypes;
 
@@ -49,7 +50,7 @@ public class CommonParser
 		return expression;
 	}
 
-	public Instruction parseInstruction(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public Instruction parseInstruction(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws SumaParseException,
 		IOException,
 		ParserException,
@@ -66,7 +67,7 @@ public class CommonParser
 					instruction=parseBlock(tokenizer, parserContext);
 					break;
 				case SumaTokenTypes.KEY_END:
-					// Ojo: Esto tiene sentido: Ocurre cuando estamos parseando las líneas de un bloque, y en algún momento llegamos al cierre de bloque.
+					// Ojo: Esto tiene sentido: Ocurre cuando estamos parseando las lï¿½neas de un bloque, y en algï¿½n momento llegamos al cierre de bloque.
 					tokenizer.pushBack(token);
 					instruction=null;
 					break;
@@ -86,7 +87,9 @@ public class CommonParser
 					instruction=FunctionParser.getInstance().parseReturn(tokenizer, parserContext);
 					break;
 				case SumaTokenTypes.KEYWORD_FUNCTION:
-					instruction=FunctionParser.getInstance().parseFunctionDefinition(tokenizer, parserContext);
+					FunctionDeclarationInstruction functionDeclarationInstruction=FunctionParser.getInstance().parseFunctionDefinition(tokenizer, parserContext);
+					instruction=functionDeclarationInstruction;
+					parserContext.getFunctionMap().put(functionDeclarationInstruction.getCodedFunction().getName(), functionDeclarationInstruction.getCodedFunction());
 					break;
 				case SumaTokenTypes.KEYWORD_ECHO_OUT:
 					instruction=parseEchoOut(tokenizer, parserContext);
@@ -132,7 +135,7 @@ public class CommonParser
 					{
 						if (expression != null)
 						{
-							// Hay que evaluar la expresión en cualquier caso: Podría involucrar una llamada a alguna función.
+							// Hay que evaluar la expresiï¿½n en cualquier caso: Podrï¿½a involucrar una llamada a alguna funciï¿½n.
 							instruction=new ExpressionInstruction(expression);
 						}
 						else
@@ -159,7 +162,7 @@ public class CommonParser
 		return instruction;
 	}
 
-	public void parseInstructions(SumaMatchingTokenizer tokenizer, ParserContext parserContext, List<Instruction> instructions)
+	public void parseInstructions(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext, List<Instruction> instructions)
 		throws SumaParseException,
 		IOException,
 		ParserException,
@@ -177,7 +180,7 @@ public class CommonParser
 		while (instruction != null);
 	}
 
-	public BlockInstruction parseBlock(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public BlockInstruction parseBlock(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws SumaParseException,
 		IOException,
 		ParserException,

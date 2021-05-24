@@ -34,7 +34,7 @@ public class LoopParser
 
 	// for ([<initialization...>];[<condition>];[<operation>]) [while (<condition>)] {...}
 	// for (var <varname>:<expression>) [while (<condition>)] {...}
-	public AbstractLoopInstruction parseForLoop(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public AbstractLoopInstruction parseForLoop(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws ParserException,
 		IOException,
 		SumaParseException,
@@ -45,11 +45,11 @@ public class LoopParser
 		CollectionLoopClause collectionLoopClause=parseLocalOrGlobalCollectionLoopClause(tokenizer, parserContext);
 		if (collectionLoopClause != null)
 		{
-			// Se trata de un bucle de colección:
+			// Se trata de un bucle de colecciï¿½n:
 			tokenizer.matchToken(SumaTokenTypes.PARENTHESIS_END);
 			Expression preCondition=parseWhileLoopClause(tokenizer, parserContext);
 			Instruction innerInstruction=CommonParser.getInstance().parseInstruction(tokenizer, parserContext);
-			// TODO Falta la condición posterior opcional.
+			// TODO Falta la condiciï¿½n posterior opcional.
 			loopInstruction=new CollectionLoopInstruction(preCondition, innerInstruction, null, collectionLoopClause.getVarName(), collectionLoopClause.getCollection());
 		}
 		else
@@ -60,7 +60,7 @@ public class LoopParser
 				// Se trata de un bucle de variables:
 				tokenizer.matchToken(SumaTokenTypes.PARENTHESIS_END);
 				Instruction innerInstruction=CommonParser.getInstance().parseInstruction(tokenizer, parserContext);
-				// TODO Falta la condición posterior opcional.
+				// TODO Falta la condiciï¿½n posterior opcional.
 				loopInstruction=new IndexedLoopInstruction(variablesLoopClause.getInitializations(), variablesLoopClause.getCondition(), innerInstruction, variablesLoopClause.getPostInstructions());
 			}
 			else
@@ -143,7 +143,7 @@ public class LoopParser
 		return collectionLoopClause;
 	}
 
-	public VariablesLoopClause parseVariablesLoopClause(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public VariablesLoopClause parseVariablesLoopClause(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws ParserException,
 		IOException,
 		EvaluationException
@@ -167,7 +167,7 @@ public class LoopParser
 		return new VariablesLoopClause(assignationsList, condition, postInstructions);
 	}
 
-	public List<Instruction> parseInstructionList(SumaMatchingTokenizer tokenizer, ParserContext parserContext)
+	public List<Instruction> parseInstructionList(SumaMatchingTokenizer tokenizer, SumaParserContext parserContext)
 		throws SumaParseException,
 		IOException,
 		ParserException,
