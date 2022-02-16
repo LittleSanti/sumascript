@@ -1,7 +1,8 @@
 package com.samajackun.sumascript.core.instructions;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.samajackun.rodas.core.eval.EvaluationException;
@@ -9,8 +10,6 @@ import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.sumascript.core.ExecutionException;
 import com.samajackun.sumascript.core.Instruction;
 import com.samajackun.sumascript.core.expression.MyContext;
-import com.samajackun.sumascript.core.instructions.IfInstruction;
-import com.samajackun.sumascript.core.instructions.SumaEvaluatorFactory;
 
 public class IfInstructionTest
 {
@@ -34,7 +33,7 @@ public class IfInstructionTest
 		catch (ExecutionException | EvaluationException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 
@@ -57,7 +56,7 @@ public class IfInstructionTest
 		catch (ExecutionException | EvaluationException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 }

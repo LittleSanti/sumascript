@@ -1,13 +1,14 @@
 package com.samajackun.sumascript.parser;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.samajackun.rodas.parsing.source.CharSequenceSource;
 import com.samajackun.rodas.parsing.source.PushBackSource;
@@ -636,14 +637,14 @@ public class SumaTokenizerTest
 		test(src, expectedTokens);
 	}
 
-	@Test(expected=UnexpectedSymbolException.class)
+	@Test
 	public void angle()
 		throws IOException,
 		TokenizerException
 	{
 		String src="^";
 		SumaTokenizer tokenizer=new SumaTokenizer(new PushBackSource(new CharSequenceSource(src)));
-		tokenizer.nextToken();
+		assertThrows(UnexpectedSymbolException.class, () -> tokenizer.nextToken());
 	}
 
 	public void ampersand()
@@ -690,24 +691,24 @@ public class SumaTokenizerTest
 		test(src, expectedTokens);
 	}
 
-	@Test(expected=UnclosedCommentException.class)
+	@Test
 	public void commentUnclosed()
 		throws IOException,
 		TokenizerException
 	{
 		String src="/*enero";
 		SumaTokenizer tokenizer=new SumaTokenizer(new PushBackSource(new CharSequenceSource(src)));
-		tokenizer.nextToken();
+		assertThrows(UnclosedCommentException.class, () -> tokenizer.nextToken());
 	}
 
-	@Test(expected=UnclosedTextLiteralException.class)
+	@Test
 	public void textLiteralUnclosed()
 		throws IOException,
 		TokenizerException
 	{
 		String src="'enero";
 		SumaTokenizer tokenizer=new SumaTokenizer(new PushBackSource(new CharSequenceSource(src)));
-		tokenizer.nextToken();
+		assertThrows(UnclosedTextLiteralException.class, () -> tokenizer.nextToken());
 	}
 
 	@Test
@@ -732,14 +733,14 @@ public class SumaTokenizerTest
 		test(src, expectedTokens);
 	}
 
-	@Test(expected=UnclosedVariableReferenceException.class)
+	@Test
 	public void variableReferenceUnclosed()
 		throws IOException,
 		TokenizerException
 	{
 		String src="${enero";
 		SumaTokenizer tokenizer=new SumaTokenizer(new PushBackSource(new CharSequenceSource(src)));
-		tokenizer.nextToken();
+		assertThrows(UnclosedVariableReferenceException.class, () -> tokenizer.nextToken());
 	}
 
 	@Test

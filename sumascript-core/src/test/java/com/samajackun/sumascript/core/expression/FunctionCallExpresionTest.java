@@ -1,14 +1,14 @@
 package com.samajackun.sumascript.core.expression;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.samajackun.rodas.core.eval.Context;
@@ -49,7 +49,7 @@ public class FunctionCallExpresionTest
 		catch (ExecutionException | EvaluationException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 
@@ -78,7 +78,7 @@ public class FunctionCallExpresionTest
 		catch (EvaluationException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 }

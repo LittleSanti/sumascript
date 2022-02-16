@@ -1,11 +1,11 @@
 package com.samajackun.sumascript.parser;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.SelectSentence;

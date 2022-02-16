@@ -1,7 +1,10 @@
 package com.samajackun.sumascript.core.instructions;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import com.samajackun.rodas.core.eval.Name;
 import com.samajackun.rodas.core.eval.VariableNotFoundException;
@@ -24,16 +27,16 @@ public class LocalVariableDeclarationAndAssignationTest
 			Expression expression=new TextConstantExpression("january");
 			MyContext context=new MyContext();
 			context.getVariablesManager().pushLocalContext(new FlexibleVariablesContext());
-			Assert.assertSame(Undefined.getInstance(), context.getVariablesManager().getLocalVariable(varName));
+			assertSame(Undefined.getInstance(), context.getVariablesManager().getLocalVariable(varName));
 			LocalVariableDeclarationAndAssignation localVariableAssignation=new LocalVariableDeclarationAndAssignation(varName, expression);
 			localVariableAssignation.execute(context);
-			Assert.assertEquals("january", context.getVariablesManager().getLocalVariable(varName));
+			assertEquals("january", context.getVariablesManager().getLocalVariable(varName));
 			context.getVariablesManager().popLocalContext();
 		}
 		catch (ExecutionException | VariableNotFoundException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 	}
 

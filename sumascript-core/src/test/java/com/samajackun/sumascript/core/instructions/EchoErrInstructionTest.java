@@ -1,10 +1,12 @@
 package com.samajackun.sumascript.core.instructions;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.samajackun.rodas.core.model.Expression;
 import com.samajackun.rodas.core.model.TextConstantExpression;
@@ -26,12 +28,12 @@ public class EchoErrInstructionTest
 		{
 			String NL=System.getProperty("line.separator");
 			echoErr.execute(context);
-			Assert.assertEquals("january" + NL, err.toString());
+			assertEquals("january" + NL, err.toString());
 		}
 		catch (ExecutionException e)
 		{
 			e.printStackTrace();
-			Assert.fail(e.toString());
+			fail(e.toString());
 		}
 
 	}
